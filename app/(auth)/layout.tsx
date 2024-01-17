@@ -12,7 +12,7 @@ export default function AuthLayout({
     children: React.ReactNode
 }) {
     return (
-        <div className='h-screen fl-col-center space-y-4'>
+        <div className='h-screen fl-col-center mt-8 gap-4'>
             <Logo />
             {children}
         </div>

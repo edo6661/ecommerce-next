@@ -53,7 +53,6 @@ export async function POST(req: Request) {
 	const eventType = evt.type;
 
 	if (eventType === 'user.created') {
-		console.log(body);
 		await db.user.create({
 			data: {
 				externalUserId: payload.data.id,
@@ -62,6 +61,25 @@ export async function POST(req: Request) {
 				coverPhoto:
 					'https://i.pinimg.com/564x/72/f6/ae/72f6ae0fe0ade2b9343b8eafe857474e.jpg',
 				bio: `${payload.data.username} default bio by mugi-chan`,
+			},
+		});
+	}
+	if (eventType === 'user.updated') {
+		await db.user.update({
+			where: {
+				// ! karena di create kita nge store nya itu payload.data.id
+				externalUserId: payload.data.id,
+			},
+			data: {
+				username: payload.data.username,
+				profilePhoto: payload.data.image_url,
+			},
+		});
+	}
+	if (eventType === 'user.deleted') {
+		await db.user.delete({
+			where: {
+				externalUserId: payload.data.id,
 			},
 		});
 	}
