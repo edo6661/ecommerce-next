@@ -9,14 +9,104 @@ generator client {
 }
 
 model User {
-  id             String @id @default(uuid())
-  username       String @unique
-  // ! pake db.text biar bisa banyak karakter dari biasanya
-  profilePhoto   String @db.Text
-  coverPhoto     String @db.Text
-  externalUserId String @unique
-  bio            String @db.Text
+  id             String  @id @default(uuid())
+  username       String  @unique
+  profilePhoto   String  @db.Text
+  coverPhoto     String  @db.Text
+  externalUserId String  @unique
+  bio            String  @db.Text
+  address        String? @db.Text
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
+
+  following  Follow[]  @relation("Following")
+  followedBy Follow[]  @relation("FollowedBy")
+  owning     Product[] @relation("Owner")
+  Cart       Cart[]
+}
+
+model Follow {
+  id          String @id @default(uuid())
+  // kolom bertipe string yang nyimpen ID user yang menjadi pengikut.
+  followerId  String
+  // kolom bertipe string yang nyimpen ID user yang menjadi diikuti.
+  followingId String
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  // ! kalo user dihapus, semua entitas follow yang terkait juga akan dihapus (onDelete: Cascade).
+  follower  User @relation(name: "Following", fields: [followerId], references: [id], onDelete: Cascade)
+  following User @relation(name: "FollowedBy", fields: [followingId], references: [id], onDelete: Cascade)
+
+  // ! user tidak dapat mengikuti user yang sama lebih dari sekali.
+  @@unique([followerId, followingId])
+  // ! untuk faster query
+  @@index([followerId])
+  @@index([followingId])
+}
+
+model Product {
+  id            String @id @default(uuid())
+  name          String
+  description   String? @db.Text
+  discountPrice Int?
+  price         Int?
+  quantity      Int?
+  photos        String @db.Text
+
+  ownerId    String
+  brandId    String
+  categoryId String
+
+  owner    User     @relation(name: "Owner", fields: [ownerId], references: [id], onDelete: Cascade)
+  category Category @relation(name: "Category", fields: [categoryId], references: [id], onDelete: Cascade)
+  brand    Brand    @relation(name: "Brand", fields: [brandId], references: [id], onDelete: Cascade)
+
+  reviews Review[] @relation("ProductReviews")
+  carts   Cart[]   @relation("CartProducts")
+
+  @@index([categoryId])
+  @@index([brandId])
+  @@index([ownerId])
+}
+
+model Category {
+  id       String    @id @default(uuid())
+  name     String
+  photo    String    @default("https://i.pinimg.com/564x/ed/b5/f1/edb5f1f03c38e9e152b2f1d7b9f46b70.jpg")
+  Products Product[] @relation("Category")
+}
+
+model Brand {
+  id       String    @id @default(uuid())
+  name     String
+  photo    String    @default("https://i.pinimg.com/564x/51/35/79/513579c9f94a306e3278309866221f79.jpg")
+  Products Product[] @relation("Brand")
+}
+
+model Review {
+  id          String  @id @default(uuid())
+  title       String
+  description String  @db.Text
+  photo       String  @default("https://i.pinimg.com/736x/0b/83/3e/0b833ebf210bf7a522c2705646e9d88a.jpg")
+  rating      Int
+  productId   String
+  product     Product @relation(name: "ProductReviews", fields: [productId], references: [id], onDelete: Cascade)
+
+  @@index([productId])
+}
+
+model Cart {
+  id        String @id @default(uuid())
+  userId    String
+  productId String
+  quantity  Int
+
+  user    User    @relation(fields: [userId], references: [id], onDelete: Cascade)
+  product Product @relation(name: "CartProducts", fields: [productId], references: [id], onDelete: Cascade)
+
+  @@index([userId])
+  @@index([productId])
 }
