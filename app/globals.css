@@ -151,6 +151,9 @@
   @apply overflow-x-auto grid;
   grid-template-columns: repeat(14, 1fr);
 }
+.cardCategory {
+  @apply fl-col-center px-2 py-4 text-center gap-2 shadowMuted;
+}
 /* ! swipe */
 .swipeActions {
   @apply absolute inset-0;

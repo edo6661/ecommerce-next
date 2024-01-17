@@ -4,7 +4,7 @@ import React from "react";
 
 const CategoryCard = ({ name, photo }: Category) => {
   return (
-    <div className="fl-col-center px-2 py-4 text-center gap-2 shadowMuted">
+    <div className="cardCategory">
       <Image
         src={photo}
         alt={name}

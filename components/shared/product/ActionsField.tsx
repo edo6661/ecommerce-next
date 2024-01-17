@@ -9,13 +9,7 @@ import { Input } from "@/components/ui/input";
 import { Control, ControllerRenderProps } from "react-hook-form";
 
 type FormFieldProps = {
-  control: Control<
-    {
-      name: string;
-      photo: string;
-    },
-    any
-  >;
+  control: Control<Record<string, any>>;
   name: string;
   label: string;
   placeholder: string;
