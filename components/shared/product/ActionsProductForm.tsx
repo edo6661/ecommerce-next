@@ -40,7 +40,6 @@ import {
   initialProduct,
   validationProductFields,
 } from "@/helpers/initial/index";
-import Field from "./Field";
 import Actions from "./Actions";
 import useMugi from "@/hooks/useMugi";
 import ModalActions from "./ModalActions";
