@@ -10,7 +10,6 @@ import "swiper/css/scrollbar";
 import { Swiper as SwiperType } from "swiper/types";
 import { Button } from "@/components/ui/button";
 import { ArrowLeft, ArrowRight } from "lucide-react";
-import CategoryCard from "../category/CategoryCard";
 import { Skeleton } from "@/components/ui/skeleton";
 
 const CategorySkeleton = () => {
@@ -21,7 +20,6 @@ const CategorySkeleton = () => {
       onSwiper={(swiper) => {
         swiperRef.current = swiper;
       }}
-      grid={{ fill: "column", rows: 2 }}
       initialSlide={6}
       breakpoints={{
         380: { slidesPerView: 2 },

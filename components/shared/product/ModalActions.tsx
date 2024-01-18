@@ -2,7 +2,7 @@ import { ActionsData, addActionsSchema } from "@/utils/zodSchema";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Trash, XSquare } from "lucide-react";
 import { ChangeEvent, useEffect, useState, useTransition } from "react";
-import { useForm } from "react-hook-form";
+import { Controller, useForm } from "react-hook-form";
 import ActionsField from "./ActionsField";
 import { Form } from "@/components/ui/form";
 import uploadFiles from "@/utils/shared/uploadFiles";
@@ -14,6 +14,15 @@ import { toast } from "sonner";
 import { dev } from "@/helpers/initial";
 import { AnimatePresence, motion } from "framer-motion";
 import { actionsModalVars } from "@/utils/framer-motion";
+import {
+  FormControl,
+  FormField,
+  FormItem,
+  FormLabel,
+  FormMessage,
+} from "@/components/ui/form";
+import { Control, ControllerRenderProps } from "react-hook-form";
+
 interface Props {
   label: string;
   falseModal: () => void;
@@ -98,13 +107,24 @@ const ModalActions = ({ label, falseModal, addAction }: Props) => {
           <Form {...form}>
             <form onSubmit={form.handleSubmit(onSubmit)}>
               <div className=" space-y-3">
-                <ActionsField
-                  control={form.control}
-                  name="name"
-                  label={label + "Name"}
-                  placeholder={`Enter your ${label} Name..`}
-                  type="text"
-                />
+                <FormItem>
+                  <FormLabel>{label + "Name"}</FormLabel>
+                  <Controller
+                    control={form.control}
+                    name="name"
+                    render={({ field }) => (
+                      <FormControl>
+                        <Input
+                          type="text"
+                          placeholder={`Enter your ${label} Name..`}
+                          {...field}
+                        />
+                      </FormControl>
+                    )}
+                  />
+                  <FormMessage />
+                </FormItem>
+
                 <Input type="file" onChange={handleFile} />
                 <Button
                   className="w-full"

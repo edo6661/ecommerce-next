@@ -7,7 +7,7 @@ import "swiper/css/scrollbar";
 
 import { ArrowLeft, ArrowRight } from "lucide-react";
 
-import { useRef } from "react";
+import { useEffect, useRef } from "react";
 
 import CategoryCard from "./CategoryCard";
 
@@ -21,14 +21,13 @@ import { Category } from "@prisma/client";
 const CategoryData = ({ category }: { category: Category[] }) => {
   const swiperRef = useRef<SwiperType | null>(null);
 
-  const prevSwipe = () => swiperRef.current?.slidePrev();
-  const nextSwipe = () => swiperRef.current?.slideNext();
-
   const cardSlider = category.map((cat, i) => (
     <SwiperSlide key={cat.id}>
       <CategoryCard {...cat} />
     </SwiperSlide>
   ));
+  const prevSwipe = () => swiperRef.current?.slidePrev();
+  const nextSwipe = () => swiperRef.current?.slideNext();
 
   return (
     <Swiper
@@ -50,8 +49,8 @@ const CategoryData = ({ category }: { category: Category[] }) => {
           return (
             <Button
               key={direction}
-              className={`${styleBasedOnDirection} group`}
-              onClick={direction === "left" ? prevSwipe : nextSwipe}
+              className={styleBasedOnDirection}
+              onClick={isLeft ? prevSwipe : nextSwipe}
             >
               {isLeft ? <ArrowLeft /> : <ArrowRight />}
             </Button>

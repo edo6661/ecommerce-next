@@ -11,6 +11,7 @@ import {
 } from "@/components/ui/card";
 import {
   Form,
+  FormControl,
   FormField,
   FormItem,
   FormLabel,
@@ -31,7 +32,7 @@ import { AnimatePresence, motion } from "framer-motion";
 import { ArrowRight } from "lucide-react";
 import { usePathname, useRouter } from "next/navigation";
 import { ChangeEvent, useEffect, useState, useTransition } from "react";
-import { useForm } from "react-hook-form";
+import { Controller, useForm } from "react-hook-form";
 import { toast } from "sonner";
 import {
   dev,
@@ -150,16 +151,54 @@ const AddProductForm = ({
 
   const elementFirstStep = (
     <>
-      {fieldsFirstStep.map((field) => (
-        <Field
-          key={field.name}
-          control={form.control}
-          name={field.name}
-          label={field.label}
-          placeholder={field.placeholder}
-          type={field.type}
-        />
-      ))}
+      {fieldsFirstStep.map((fields) => {
+        if (
+          [
+            "name",
+            "description",
+            "discountPrice",
+            "price",
+            "quantity",
+            "categoryId",
+            "brandId",
+            "photos",
+            "id",
+          ].includes(fields.name)
+        ) {
+          return (
+            <FormItem key={fields.name}>
+              <FormLabel>{fields.label}</FormLabel>
+              <Controller
+                control={form.control}
+                name={
+                  fields.name as
+                    | "name"
+                    | "description"
+                    | "discountPrice"
+                    | "price"
+                    | "quantity"
+                    | "categoryId"
+                    | "brandId"
+                    | "photos"
+                    | "id"
+                    | `photos.${number}`
+                }
+                render={({ field }) => (
+                  <FormControl>
+                    <Input
+                      type={fields.type}
+                      placeholder={fields.placeholder}
+                      {...field}
+                    />
+                  </FormControl>
+                )}
+              />
+              <FormMessage />
+            </FormItem>
+          );
+        }
+        return null;
+      })}
     </>
   );
 

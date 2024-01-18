@@ -8,6 +8,7 @@ import { Separator } from "@/components/ui/separator";
 import { Suspense } from "react";
 import { Category } from "../_components/category/Category";
 import CategorySkeleton from "../_components/skeleton/CategorySkeleton";
+import SuspensedProducts from "../_components/products/SuspensedProducts";
 
 export default async function Home() {
   const brands = await getBrand();
@@ -24,6 +25,7 @@ export default async function Home() {
             <Category />
           </Suspense>
           <CategorySkeleton />
+          <SuspensedProducts />
         </article>
       </section>
     </>
