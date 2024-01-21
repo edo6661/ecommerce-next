@@ -7,9 +7,7 @@ import "swiper/css/scrollbar";
 
 import { ArrowLeft, ArrowRight } from "lucide-react";
 
-import { useEffect, useRef } from "react";
-
-import CategoryCard from "./CategoryCard";
+import { useEffect, useRef, useState } from "react";
 
 import { Button } from "@/components/ui/button";
 
@@ -17,15 +15,19 @@ import { Swiper, SwiperSlide } from "swiper/react";
 import { Swiper as SwiperType } from "swiper/types";
 
 import { Category } from "@prisma/client";
+import CatBrandCard from "./CatBrandCard";
 
-const CategoryData = ({ category }: { category: Category[] }) => {
+const CatBrandSwiper = ({ data }: { data: Category[] }) => {
   const swiperRef = useRef<SwiperType | null>(null);
+  const [end, setEnd] = useState(false);
+  const [first, setFirst] = useState(true);
 
-  const cardSlider = category.map((cat, i) => (
-    <SwiperSlide key={cat.id}>
-      <CategoryCard {...cat} />
+  const cardSlider = data.map((eachData, i) => (
+    <SwiperSlide key={eachData.id}>
+      <CatBrandCard {...eachData} />
     </SwiperSlide>
   ));
+
   const prevSwipe = () => swiperRef.current?.slidePrev();
   const nextSwipe = () => swiperRef.current?.slideNext();
 
@@ -34,12 +36,17 @@ const CategoryData = ({ category }: { category: Category[] }) => {
       onSwiper={(swiper) => {
         swiperRef.current = swiper;
       }}
-      initialSlide={6}
       breakpoints={{
         368: { slidesPerView: 2 },
         768: { slidesPerView: 4 },
         1024: { slidesPerView: 6 },
       }}
+      // onReachEnd={() => {
+      //   return console.log("test");
+      // }}
+      // onReachBeginning={() => {
+      //   return console.log("first");
+      // }}
     >
       {cardSlider}
       <div className="swipeActions">
@@ -51,6 +58,7 @@ const CategoryData = ({ category }: { category: Category[] }) => {
               key={direction}
               className={styleBasedOnDirection}
               onClick={isLeft ? prevSwipe : nextSwipe}
+              disabled={isLeft ? first : end}
             >
               {isLeft ? <ArrowLeft /> : <ArrowRight />}
             </Button>
@@ -61,4 +69,4 @@ const CategoryData = ({ category }: { category: Category[] }) => {
   );
 };
 
-export default CategoryData;
+export default CatBrandSwiper;

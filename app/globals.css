@@ -92,8 +92,8 @@
     @apply text-xl font-semibold;
   }
   .hovered {
-    @apply transition-all hover:opacity-85 hover:shadow-slate-500 hover:shadow-md duration-200 dark:shadow-white
-    shadow-slate-500  shadow-sm;
+    @apply transition-all hover:opacity-85 hover:shadow-slate-500 hover:shadow-md duration-200 dark:shadow-white 
+    shadow-neutral-500  shadow-sm;
   }
   .shadowMuted {
     @apply shadow-sm shadow-muted hover:shadow-md duration-200 transition-shadow;
@@ -147,12 +147,12 @@
 }
 
 /* ! category */
-.containerCategory {
+.containerCatBrand {
   @apply overflow-x-auto grid;
   grid-template-columns: repeat(14, 1fr);
 }
-.cardCategory {
-  @apply fl-col-center px-2 py-4 text-center gap-2 shadowMuted;
+.cardCatBrand {
+  @apply fl-col-center px-2 py-4 text-center gap-2 shadowMuted h-[144px];
 }
 /* ! swipe */
 .swipeActions {

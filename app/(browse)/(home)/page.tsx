@@ -6,13 +6,10 @@ import Posters from "./_components/Posters";
 import Image from "next/image";
 import { Separator } from "@/components/ui/separator";
 import { Suspense } from "react";
-import { Category } from "../_components/category/Category";
-import CategorySkeleton from "../_components/skeleton/CategorySkeleton";
-import SuspensedProducts from "../_components/products/SuspensedProducts";
+import { CatBrand } from "../_components/category/CatBrand";
+import CatBrandSkeleton from "@/components/skeleton/CatBrandSkeleton";
 
 export default async function Home() {
-  const brands = await getBrand();
-
   return (
     <>
       <section className={cn("container py-4 overflow-x-hidden")}>
@@ -21,11 +18,15 @@ export default async function Home() {
         </div>
         <Separator className="my-6" />
         <article>
-          <Suspense fallback={<CategorySkeleton />}>
-            <Category />
+          <Suspense fallback={<CatBrandSkeleton />}>
+            <CatBrand getData={getCategory} label="Category" />
           </Suspense>
-          <CategorySkeleton />
-          <SuspensedProducts />
+        </article>
+        <Separator className="my-6" />
+        <article>
+          <Suspense fallback={<CatBrandSkeleton />}>
+            <CatBrand getData={getBrand} label="Brand" />
+          </Suspense>
         </article>
       </section>
     </>

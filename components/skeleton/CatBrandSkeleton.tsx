@@ -1,6 +1,5 @@
 "use client";
 import React, { useEffect, useRef } from "react";
-import { Category } from "@prisma/client";
 import { Swiper, SwiperSlide, useSwiper } from "swiper/react";
 import "swiper/css";
 import "swiper/css/navigation";
@@ -8,11 +7,11 @@ import "swiper/css/pagination";
 import "swiper/css/scrollbar";
 
 import { Swiper as SwiperType } from "swiper/types";
-import { Button } from "@/components/ui/button";
 import { ArrowLeft, ArrowRight } from "lucide-react";
 import { Skeleton } from "@/components/ui/skeleton";
+import { Button } from "../ui/button";
 
-const CategorySkeleton = () => {
+const CatBrandSkeleton = () => {
   const swiperRef = useRef<SwiperType | null>(null);
 
   return (
@@ -53,4 +52,4 @@ const CategorySkeleton = () => {
   );
 };
 
-export default CategorySkeleton;
+export default CatBrandSkeleton;

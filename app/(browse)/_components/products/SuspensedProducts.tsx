@@ -11,7 +11,7 @@ async function SuspensedProducts() {
       <Suspense
         fallback={
           <h1 className="text-5xl text-red-500 text-center z-50">
-            Test Suspense...
+            Test Loading Suspense...
           </h1>
         }
       >

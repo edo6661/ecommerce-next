@@ -209,8 +209,6 @@ const AddProductForm = ({
     />
   );
 
-  // console.log(categoryModal);
-
   const modalBrand = brandModal && (
     <ModalActions
       label="Brand"

@@ -61,7 +61,6 @@ const ModalActions = ({ label, falseModal, addAction }: Props) => {
         })
         .catch((err) => toast.error(dev));
     });
-    router.push("/");
   };
 
   const previewFile = async () => {
