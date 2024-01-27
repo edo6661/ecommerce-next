@@ -2,7 +2,7 @@ import { db } from "@/lib/database";
 import { NextApiRequest, NextApiResponse } from "next";
 import { NextResponse } from "next/server";
 
-export const GET = async (req: NextApiRequest, res: NextApiResponse) => {
+export const GET = async (req: Request, res: Response) => {
   try {
     const { searchParams } = new URL(req.url!);
 
@@ -26,7 +26,7 @@ export const GET = async (req: NextApiRequest, res: NextApiResponse) => {
   }
 };
 
-export const POST = async (req: Request, res: NextApiResponse) => {
+export const POST = async (req: Request, res: Response) => {
   try {
     const data = await req.json();
     const product = await db.product.create({
