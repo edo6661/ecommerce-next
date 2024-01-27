@@ -7,7 +7,7 @@ import SideRating from "../_components/SideRating";
 
 const page = async ({ params }: { params: { name: string } }) => {
   const { name } = params;
-  const products = await getProductsByCategory(name);
+  const products = await getProductsByCategory(params.name);
 
   return (
     <>

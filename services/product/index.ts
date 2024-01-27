@@ -1,3 +1,4 @@
+"use server";
 import { db } from "@/lib/database";
 import { ConvertedProductType } from "@/types/Product";
 import { ActionsData, ProductData } from "@/utils/zodSchema";

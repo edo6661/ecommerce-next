@@ -2,6 +2,8 @@ import { db } from "@/lib/database";
 import { NextApiRequest } from "next";
 import { NextResponse } from "next/server";
 
+export const dynamic = "force-dynamic";
+
 export const GET = async (req: Request) => {
   try {
     const { searchParams } = new URL(req.url!);
