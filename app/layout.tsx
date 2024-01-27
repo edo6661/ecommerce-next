@@ -4,6 +4,8 @@ import type { Metadata } from "next";
 import { Toaster } from "sonner";
 import "./globals.css";
 import { poppins } from "@/lib/utils";
+import { StrictMode } from "react";
+import Provider from "@/provider";
 
 export const metadata: Metadata = {
   title: "Create Next App",
@@ -16,15 +18,10 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <ClerkProvider>
-      <html lang="en" suppressHydrationWarning={true}>
-        <body className={poppins.className}>
-          <ThemeProvider attribute="class" enableSystem>
-            <Toaster position="bottom-center" />
-            {children}
-          </ThemeProvider>
-        </body>
-      </html>
-    </ClerkProvider>
+    <html lang="en" suppressHydrationWarning={true}>
+      <body className={poppins.className}>
+        <Provider>{children}</Provider>
+      </body>
+    </html>
   );
 }

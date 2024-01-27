@@ -17,6 +17,8 @@ import {
   FormLabel,
   FormMessage,
 } from "@/components/ui/form";
+import { ErrorMessage } from "@hookform/error-message";
+
 import { Input } from "@/components/ui/input";
 import { Select } from "@/components/ui/select";
 import { cn } from "@/lib/utils";
@@ -30,7 +32,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { Brand, Category, Product, User } from "@prisma/client";
 import { AnimatePresence, motion } from "framer-motion";
 import { ArrowRight } from "lucide-react";
-import { usePathname, useRouter } from "next/navigation";
+import { useRouter } from "next/navigation";
 import { ChangeEvent, useEffect, useState, useTransition } from "react";
 import { Controller, useForm } from "react-hook-form";
 import { toast } from "sonner";
@@ -47,6 +49,7 @@ import UploadedImage from "./UploadedImage";
 import FormSelect from "./FormSelect";
 import { ConvertedProductType } from "@/types/Product";
 import { DevTool } from "@hookform/devtools";
+import useProductInfinite from "@/hooks/useProductInfinite";
 
 interface Props {
   category: Category[];
@@ -65,12 +68,12 @@ const AddProductForm = ({
   label,
   actions,
 }: Props) => {
+  const router = useRouter();
+  const { refetch } = useProductInfinite();
+  const [isPending, startTransition] = useTransition();
   const { categoryModal, falseCategoryModal, brandModal, falseBrandModal } =
     useMugi((state) => state);
 
-  const router = useRouter();
-
-  const [isPending, startTransition] = useTransition();
   const [files, setFiles] = useState<File[]>([]);
   const [uploadedFile, setUploadedFile] = useState<string[]>([]);
   const [formStep, setFormStep] = useState(0);
@@ -111,6 +114,7 @@ const AddProductForm = ({
 
   const onSubmit = async (data: ProductData) => {
     if (!form.formState.isDirty) {
+      console.log("something wrong with those inputs");
       return;
     }
     const convertedType = {
@@ -124,10 +128,9 @@ const AddProductForm = ({
     };
     startTransition(() => {
       actions(convertedType)
-        .then((item) => {
-          toast.success(
-            `You are ${label}ing ${product ? product.name : item?.name} item`
-          );
+        .then((product) => {
+          toast.success(`You are ${label}ing ${product?.name} item`);
+          refetch();
           router.push("/");
         })
         .catch((err) => {
@@ -193,6 +196,12 @@ const AddProductForm = ({
                 )}
               />
               <FormMessage />
+              <div className=" text-red-500 pl-2 text-sm font-semibold">
+                <ErrorMessage
+                  name={fields.name}
+                  errors={form.formState.errors}
+                />
+              </div>
             </FormItem>
           );
         }
@@ -324,24 +333,14 @@ const AddProductForm = ({
                   })}
                   onClick={async () => {
                     const isValid = await form.trigger(validationProductFields);
-                    if (isValid) setFormStep(1);
+                    if (isValid) {
+                      setFormStep(1);
+                    }
 
                     return;
-                    // if (!editPath) {
-                    //   form.trigger(validationProductFields);
-                    //   const isFormValid = validationProductFields.every(
-                    //     (field) => {
-                    //       const fieldState = form.getFieldState(field);
-                    //       return !fieldState.invalid;
-                    //     }
-                    //   );
-                    //   if (isFormValid) {
-                    //     setFormStep(1);
-                    //   }
-                    // } else {
-                    //   setFormStep(1);
-                    // }
                   }}
+                  disabled={!form.formState.isValid}
+                  onKeyDown={(e) => e.key === "Tab" && e.preventDefault()}
                 >
                   Next Step
                   <ArrowRight className="w-4 h-4 ml-2" />

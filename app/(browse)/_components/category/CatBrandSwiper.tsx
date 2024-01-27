@@ -2,8 +2,6 @@
 
 import "swiper/css";
 import "swiper/css/navigation";
-import "swiper/css/pagination";
-import "swiper/css/scrollbar";
 
 import { ArrowLeft, ArrowRight } from "lucide-react";
 
@@ -13,18 +11,23 @@ import { Button } from "@/components/ui/button";
 
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Swiper as SwiperType } from "swiper/types";
+import { Navigation, Pagination, Scrollbar, A11y } from "swiper/modules";
 
 import { Category } from "@prisma/client";
 import CatBrandCard from "./CatBrandCard";
 
-const CatBrandSwiper = ({ data }: { data: Category[] }) => {
+const CatBrandSwiper = ({
+  data,
+  label,
+}: {
+  data: Category[];
+  label: string;
+}) => {
   const swiperRef = useRef<SwiperType | null>(null);
-  const [end, setEnd] = useState(false);
-  const [first, setFirst] = useState(true);
 
   const cardSlider = data.map((eachData, i) => (
     <SwiperSlide key={eachData.id}>
-      <CatBrandCard {...eachData} />
+      <CatBrandCard {...eachData} label={label} />
     </SwiperSlide>
   ));
 
@@ -33,6 +36,7 @@ const CatBrandSwiper = ({ data }: { data: Category[] }) => {
 
   return (
     <Swiper
+      modules={[Navigation, Scrollbar, A11y]}
       onSwiper={(swiper) => {
         swiperRef.current = swiper;
       }}
@@ -41,15 +45,10 @@ const CatBrandSwiper = ({ data }: { data: Category[] }) => {
         768: { slidesPerView: 4 },
         1024: { slidesPerView: 6 },
       }}
-      // onReachEnd={() => {
-      //   return console.log("test");
-      // }}
-      // onReachBeginning={() => {
-      //   return console.log("first");
-      // }}
+      navigation
     >
       {cardSlider}
-      <div className="swipeActions">
+      {/* <div className="swipeActions">
         {["left", "right"].map((direction) => {
           const isLeft = direction === "left";
           const styleBasedOnDirection = isLeft ? "left-0" : "right-0";
@@ -58,13 +57,12 @@ const CatBrandSwiper = ({ data }: { data: Category[] }) => {
               key={direction}
               className={styleBasedOnDirection}
               onClick={isLeft ? prevSwipe : nextSwipe}
-              disabled={isLeft ? first : end}
             >
               {isLeft ? <ArrowLeft /> : <ArrowRight />}
             </Button>
           );
         })}
-      </div>
+      </div> */}
     </Swiper>
   );
 };

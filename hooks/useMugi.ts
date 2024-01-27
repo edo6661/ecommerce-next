@@ -13,6 +13,10 @@ interface StoreState {
   isCategory: boolean;
   isCategoryTrue: () => void;
   isCategoryFalse: () => void;
+  isOnFiltered: boolean;
+  isOnFilteredToggle: () => void;
+  isOnFilteredStar: boolean;
+  isOnFilteredStarToggle: () => void;
 }
 
 const useMugi = create<StoreState>((set) => ({
@@ -28,6 +32,12 @@ const useMugi = create<StoreState>((set) => ({
   isCategory: false,
   isCategoryFalse: () => set(() => ({ isCategory: false })),
   isCategoryTrue: () => set(() => ({ isCategory: true })),
+  isOnFiltered: true,
+  isOnFilteredToggle: () =>
+    set((state) => ({ isOnFiltered: !state.isOnFiltered })),
+  isOnFilteredStar: true,
+  isOnFilteredStarToggle: () =>
+    set((state) => ({ isOnFilteredStar: !state.isOnFilteredStar })),
 }));
 
 export default useMugi;

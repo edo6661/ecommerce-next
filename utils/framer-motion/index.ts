@@ -165,3 +165,72 @@ export const actionsPosterVars = {
     },
   },
 };
+
+export const cardProps = {
+  initial: {
+    opacity: 0,
+    scale: 1,
+  },
+  view: {
+    opacity: 1,
+    transition: {
+      type: "spring",
+    },
+  },
+  animate: {
+    scale: 1.03,
+    transition: {
+      type: "spring",
+    },
+    opacity: 0.9,
+    filter: "blur(0.5px)",
+  },
+  exit: {
+    scale: 1,
+    transition: {
+      type: "spring",
+    },
+    filter: "blur(0)",
+  },
+};
+
+export const productCardProps = {
+  ...cardProps,
+  animate: {
+    ...cardProps.animate,
+    scale: 1.005,
+  },
+};
+
+export const viewAllVars = {
+  initial: {
+    opacity: 0,
+  },
+  animate: {
+    opacity: 1,
+    transition: {
+      type: "spring",
+    },
+  },
+  exit: {
+    opacity: 0,
+    transition: {
+      type: "spring",
+    },
+  },
+};
+
+export const dropdownVars = {
+  animate: {
+    rotate: "180deg",
+    transition: {
+      type: "spring",
+    },
+  },
+  exit: {
+    rotate: "0deg",
+    transition: {
+      type: "spring",
+    },
+  },
+};

@@ -56,9 +56,11 @@ model Product {
   quantity      Int?
   photos        String @db.Text
 
-  ownerId    String
-  brandId    String
-  categoryId String
+  ownerId    String @default("No Owner")
+  brandId    String @default("No Brand")
+  categoryId String @default("No Category")
+
+  createdAt DateTime? @default(now())
 
   owner    User     @relation(name: "Owner", fields: [ownerId], references: [id], onDelete: Cascade)
   category Category @relation(name: "Category", fields: [categoryId], references: [id], onDelete: Cascade)
@@ -74,7 +76,7 @@ model Product {
 
 model Category {
   id       String    @id @default(uuid())
-  name     String
+  name     String   
   photo    String    @default("https://i.pinimg.com/564x/ed/b5/f1/edb5f1f03c38e9e152b2f1d7b9f46b70.jpg")
   Products Product[] @relation("Category")
 }

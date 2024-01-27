@@ -2,11 +2,16 @@ import { db } from "@/lib/database";
 import { ConvertedProductType } from "@/types/Product";
 import { ActionsData, ProductData } from "@/utils/zodSchema";
 
-export const getProducts = async () => {
-  return db.product.findMany({}).catch((err) => {
-    console.error(err);
-    throw new Error("failed to fetch products");
-  });
+export const getProductsWithPageLimit = async (page: number, limit: number) => {
+  return db.product
+    .findMany({
+      skip: (page - 1) * limit,
+      take: limit,
+    })
+    .catch((err) => {
+      console.error(err);
+      throw new Error("failed to fetch products");
+    });
 };
 
 export const getProductById = async (id: string) => {
@@ -35,18 +40,6 @@ export const editProduct = async (data: ConvertedProductType) => {
     const product = await db.product.update({
       where: { id: data.id },
       data: { ...data },
-      select: {
-        id: true,
-        name: true,
-        description: true,
-        discountPrice: true,
-        price: true,
-        quantity: true,
-        photos: true,
-        ownerId: true,
-        brandId: true,
-        categoryId: true,
-      },
     });
 
     return product;
@@ -78,6 +71,21 @@ export const createBrand = async (data: ActionsData) => {
       },
     });
     return brand;
+  } catch (err) {
+    console.error(err);
+    throw new Error("Internal Error");
+  }
+};
+
+export const getProductsByCategory = async (name: string) => {
+  try {
+    return db.product.findMany({
+      where: {
+        category: {
+          name,
+        },
+      },
+    });
   } catch (err) {
     console.error(err);
     throw new Error("Internal Error");

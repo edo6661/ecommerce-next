@@ -3,6 +3,7 @@ import React from "react";
 import { montserrat } from "@/lib/utils";
 import CatBrandSwiper from "./CatBrandSwiper";
 import { Category } from "@prisma/client";
+import Title from "@/components/shared/Title";
 
 interface Props {
   getData: () => Promise<Category[]>;
@@ -14,8 +15,8 @@ export const CatBrand = async ({ getData, label }: Props) => {
   return (
     <>
       <article>
-        <h3 className={`${montserrat.className} title`}>{label}</h3>
-        <CatBrandSwiper data={data} />
+        <Title label={label} />
+        <CatBrandSwiper data={data} label={label} />
       </article>
     </>
   );
