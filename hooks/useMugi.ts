@@ -32,10 +32,10 @@ const useMugi = create<StoreState>((set) => ({
   isCategory: false,
   isCategoryFalse: () => set(() => ({ isCategory: false })),
   isCategoryTrue: () => set(() => ({ isCategory: true })),
-  isOnFiltered: true,
+  isOnFiltered: false,
   isOnFilteredToggle: () =>
     set((state) => ({ isOnFiltered: !state.isOnFiltered })),
-  isOnFilteredStar: true,
+  isOnFilteredStar: false,
   isOnFilteredStarToggle: () =>
     set((state) => ({ isOnFilteredStar: !state.isOnFilteredStar })),
 }));

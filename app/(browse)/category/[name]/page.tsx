@@ -1,45 +1,28 @@
-import { getProductsByCategory } from "@/services/product";
-import Link from "next/link";
-import { FaCaretRight } from "react-icons/fa6";
-import FilterCatBrand from "../_components/FilterCatBrand";
-import SideCategory from "../_components/SideCategory";
-import SideRating from "../_components/SideRating";
+import SpesificBrandCat from "@/components/shared/brandCat/SpesificBrandCat";
+import { getCategory } from "@/services/category";
 
-const page = async ({ params }: { params: { name: string } }) => {
+interface Props {
+  params: { name: string };
+  searchParams?: {
+    limit?: string;
+    page?: string;
+  };
+}
+
+const page = async ({ params, searchParams }: Props) => {
   const { name } = params;
-  const products = await getProductsByCategory(params.name);
+  const limit = Number(searchParams?.limit) || 6;
+  const page = Number(searchParams?.page) || 1;
 
   return (
     <>
-      <section className="container py-4 space-y-4">
-        <div className="fl-center gap-2">
-          <Link className=" hoveredText " href="/">
-            Mugichawn
-          </Link>
-          <FaCaretRight />
-          <Link className=" hoveredText " href="/category">
-            Category
-          </Link>
-          <FaCaretRight />
-          <p className=" focusedWord">{params.name}</p>
-        </div>
-        <article className=" grid grid-cols-3 items-center">
-          <p className="">Filter</p>
-          <div className=" col-span-2 fl-center justify-between">
-            <p>Showing {products.length + " " + params.name}</p>
-            <FilterCatBrand />
-          </div>
-        </article>
-        <article className=" grid grid-cols-3 gap-2">
-          <div className=" shadow-neutral-500 shadow-sm px-4 pt-2 pb-8 rounded-xl ">
-            <SideCategory name={name.toUpperCase()} />
-            <SideRating />
-          </div>
-          <div className=" col-span-3">
-            <p>test</p>
-          </div>
-        </article>
-      </section>
+      <SpesificBrandCat
+        getData={getCategory}
+        label="category"
+        name={name}
+        page={page}
+        limit={limit}
+      />
     </>
   );
 };

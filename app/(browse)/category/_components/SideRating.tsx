@@ -11,7 +11,7 @@ const SideRating = () => {
   return (
     <>
       <AnimatePresence>
-        <motion.div className=" " layout>
+        <motion.div layout>
           <DropdownRatingCatBrand />
           <AnimatePresence>
             {isOnFilteredStar && (

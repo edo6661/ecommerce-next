@@ -31,9 +31,6 @@ const CatBrandSwiper = ({
     </SwiperSlide>
   ));
 
-  const prevSwipe = () => swiperRef.current?.slidePrev();
-  const nextSwipe = () => swiperRef.current?.slideNext();
-
   return (
     <Swiper
       modules={[Navigation, Scrollbar, A11y]}
@@ -48,21 +45,6 @@ const CatBrandSwiper = ({
       navigation
     >
       {cardSlider}
-      {/* <div className="swipeActions">
-        {["left", "right"].map((direction) => {
-          const isLeft = direction === "left";
-          const styleBasedOnDirection = isLeft ? "left-0" : "right-0";
-          return (
-            <Button
-              key={direction}
-              className={styleBasedOnDirection}
-              onClick={isLeft ? prevSwipe : nextSwipe}
-            >
-              {isLeft ? <ArrowLeft /> : <ArrowRight />}
-            </Button>
-          );
-        })}
-      </div> */}
     </Swiper>
   );
 };

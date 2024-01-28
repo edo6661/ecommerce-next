@@ -34,6 +34,9 @@
 
     --radius: 0.5rem;
   }
+  html {
+    @apply scroll-smooth;
+  }
 
   .dark {
     --background: 0 0% 3.9%;
@@ -184,9 +187,9 @@
 
 /* ! products */
 .containerProducts {
-  @apply grid sm:grid-cols-base-auto-fit grid-cols-sm-auto-fit gap-x-4 gap-y-8;
+  @apply grid sm:grid-cols-lg-auto-fit grid-cols-sm-auto-fit gap-x-4 gap-y-8;
 }
-.containerProducts > div {
+.containerProducts > div > div {
   @apply shadow-muted shadow-md rounded-md;
 }
 

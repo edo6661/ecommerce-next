@@ -7,16 +7,17 @@ import { AnimatePresence, motion } from "framer-motion";
 import { viewAllVars } from "@/utils/framer-motion";
 import { useEffect, useState } from "react";
 interface Props {
-  category: Category[];
+  data: Category[];
   name: string;
+  label: string;
 }
-const SideCategoryCard = ({ category, name }: Props) => {
+const SideCatBrandCard = ({ data, name, label }: Props) => {
   const { isOnFiltered } = useMugi((state) => state);
   const [isViewAll, setIsViewAll] = useState(false);
 
   const toggleViewAll = () => setIsViewAll((prev) => !prev);
 
-  const optionalFiltered = isOnFiltered ? (isViewAll ? category.length : 5) : 0;
+  const optionalFiltered = isOnFiltered ? (isViewAll ? data.length : 5) : 0;
 
   useEffect(() => {
     !isOnFiltered && setIsViewAll(false);
@@ -26,7 +27,7 @@ const SideCategoryCard = ({ category, name }: Props) => {
     <>
       <AnimatePresence>
         <motion.div layout>
-          {category
+          {data
             .sort((a, _) => (a.name.toUpperCase() === name ? -1 : 0))
             .slice(0, optionalFiltered)
             .map((cat) => {
@@ -35,7 +36,7 @@ const SideCategoryCard = ({ category, name }: Props) => {
               return (
                 <div key={cat.id}>
                   <Link
-                    href={`/category/${cat.name}`}
+                    href={`/${label}/${cat.name}`}
                     className={`${currentCat}`}
                   >
                     {cat.name}
@@ -67,4 +68,4 @@ const SideCategoryCard = ({ category, name }: Props) => {
   );
 };
 
-export default SideCategoryCard;
+export default SideCatBrandCard;

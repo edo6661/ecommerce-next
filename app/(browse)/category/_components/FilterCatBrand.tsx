@@ -14,6 +14,7 @@ const FilterCatBrand = () => {
     { id: "4", name: "Highest Price", photo: "" },
     { id: "5", name: "Lowest Price", photo: "" },
   ];
+
   const form = useForm({
     defaultValues: {
       ...initialProduct,
@@ -21,21 +22,26 @@ const FilterCatBrand = () => {
   });
 
   return (
-    <Form {...form}>
-      <form className=" ">
-        <FormField
-          control={form.control}
-          name="categoryId"
-          render={({ field }) => (
-            <FormItem>
-              <Select onValueChange={field.onChange} defaultValue={field.value}>
-                <FormSelect items={brand} label="Sort" />
-              </Select>
-            </FormItem>
-          )}
-        />
-      </form>
-    </Form>
+    <>
+      <Form {...form}>
+        <form className=" ">
+          <FormField
+            control={form.control}
+            name="categoryId"
+            render={({ field }) => (
+              <FormItem>
+                <Select
+                  onValueChange={field.onChange}
+                  defaultValue={field.value}
+                >
+                  <FormSelect items={brand} label="Sort" />
+                </Select>
+              </FormItem>
+            )}
+          />
+        </form>
+      </Form>
+    </>
   );
 };
 

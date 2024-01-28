@@ -52,7 +52,7 @@ module.exports = {
         },
       },
       gridTemplateColumns: {
-        "base-auto-fit": "repeat(auto-fit,minmax(12rem,1fr))",
+        "lg-auto-fit": "repeat(auto-fit,minmax(12rem,1fr))",
         "sm-auto-fit": "repeat(auto-fit,minmax(8.7rem,1fr))",
       },
       borderRadius: {

@@ -1,10 +1,29 @@
-import React from "react";
+import SpesificBrandCat from "@/components/shared/brandCat/SpesificBrandCat";
+import { getBrand } from "@/services/brand";
 
-const page = ({ params }: { params: { name: string } }) => {
+interface Props {
+  params: { name: string };
+  searchParams?: {
+    limit?: string;
+    page?: string;
+  };
+}
+
+const page = async ({ params, searchParams }: Props) => {
+  const { name } = params;
+  const limit = Number(searchParams?.limit) || 6;
+  const page = Number(searchParams?.page) || 1;
+
   return (
-    <section className="container py-4">
-      <h2>{params.name}</h2>
-    </section>
+    <>
+      <SpesificBrandCat
+        getData={getBrand}
+        label="brand"
+        name={name}
+        page={page}
+        limit={limit}
+      />
+    </>
   );
 };
 

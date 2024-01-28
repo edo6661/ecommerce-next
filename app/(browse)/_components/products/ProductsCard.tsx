@@ -1,3 +1,4 @@
+"use client";
 import { Skeleton } from "@/components/ui/skeleton";
 import { upperFirst } from "@/helpers";
 import useUserById from "@/hooks/useUserById";
@@ -29,9 +30,10 @@ const ProductsCard = ({
           exit="exit"
           whileInView="view"
           viewport={{ once: true }}
+          className=" max-w-64 mx-auto h-full"
         >
           <Link
-            href={`product/${id}`}
+            href={`/product/${id}`}
             className=" flex flex-col gap-2 sm:text-base text-sm"
           >
             <Image

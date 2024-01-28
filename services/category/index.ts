@@ -1,3 +1,4 @@
+"use server";
 import { db } from "@/lib/database";
 import { unstable_noStore } from "next/cache";
 

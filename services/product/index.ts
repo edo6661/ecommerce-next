@@ -92,3 +92,16 @@ export const getProductsByCategory = async (name: string) => {
     throw new Error("Internal Error");
   }
 };
+
+export const getProductsLengthByCategory = async (name: string) => {
+  try {
+    return db.category.count({
+      where: {
+        name,
+      },
+    });
+  } catch (error) {
+    console.error(error);
+    throw new Error("Internal Error");
+  }
+};

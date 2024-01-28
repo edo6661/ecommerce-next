@@ -9,7 +9,8 @@ import {
 import { motion } from "framer-motion";
 import { cn } from "@/lib/utils";
 import { dropdownVars } from "@/utils/framer-motion";
-const DropdownCatBrand = () => {
+import { upperFirst } from "@/helpers";
+const DropdownCatBrand = ({ label }: { label: string }) => {
   const { isOnFilteredToggle, isOnFiltered } = useMugi((state) => state);
 
   return (
@@ -18,7 +19,7 @@ const DropdownCatBrand = () => {
         className="fl-center justify-between w-full group"
         onClick={isOnFilteredToggle}
       >
-        <Title label="Category" />
+        <Title label={upperFirst(label)} />
         <AnimatePresence>
           <motion.span
             variants={dropdownVars}
