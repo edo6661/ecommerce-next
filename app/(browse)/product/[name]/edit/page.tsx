@@ -1,4 +1,3 @@
-import { getProductById } from "@/services/product";
 import React from "react";
 import { getCategory } from "@/services/category";
 import { getBrand } from "@/services/brand";
@@ -6,19 +5,20 @@ import { getSelf } from "@/services/user";
 import { updateProduct } from "@/actions/product";
 import AddProductForm from "@/components/shared/product/ActionsProductForm";
 import ActionsProductForm from "@/components/shared/product/ActionsProductForm";
+import { getProductByName } from "@/services/product";
 
 interface Props {
-  params: { id: string };
+  params: { name: string };
 }
 
 const EditProduct = async ({ params }: Props) => {
-  const product = await getProductById(params.id);
+  const product = await getProductByName(decodeURIComponent(params.name));
   const category = await getCategory();
   const brand = await getBrand();
   const owner = await getSelf();
 
   const initialProduct = {
-    id: params.id,
+    id: product?.id,
     name: product?.name ?? "",
     description: product?.description ?? "",
     discountPrice: (product?.discountPrice ?? 0).toString(),

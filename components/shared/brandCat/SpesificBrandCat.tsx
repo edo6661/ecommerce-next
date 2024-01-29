@@ -24,11 +24,7 @@ const SpesificBrandCat = ({ name, page, limit, label, getData }: Props) => {
           Mugichawn
         </Link>
         <FaCaretRight />
-        <Link className=" hoveredText " href={`/${label}`}>
-          {upperFirst(label)}
-        </Link>
-        <FaCaretRight />
-        <p className=" focusedWord">{name}</p>
+        <p className=" focusedWord">{decodeURIComponent(name)}</p>
       </div>
       <article className=" grid grid-cols-3 items-center">
         <p className="">Filter</p>

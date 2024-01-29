@@ -33,7 +33,7 @@ const ProductsCard = ({
           className=" max-w-64 mx-auto h-full"
         >
           <Link
-            href={`/product/${id}`}
+            href={`/product/${encodeURI(name)}`}
             className=" flex flex-col gap-2 sm:text-base text-sm"
           >
             <Image
@@ -43,7 +43,7 @@ const ProductsCard = ({
               alt={name}
               src={urls[0]}
             />
-            <div className="px-3 pb-2">
+            <div className="px-3 pb-4">
               <p className=" sm:text-lg ">{upperFirst(name)}</p>
               <div className=" fl-center gap-2">
                 <span className=" text-sm">Rp </span>

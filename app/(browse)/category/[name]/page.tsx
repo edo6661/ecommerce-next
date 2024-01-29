@@ -11,6 +11,7 @@ interface Props {
 
 const page = async ({ params, searchParams }: Props) => {
   const { name } = params;
+
   const limit = Number(searchParams?.limit) || 6;
   const page = Number(searchParams?.page) || 1;
 
@@ -19,10 +20,17 @@ const page = async ({ params, searchParams }: Props) => {
       <SpesificBrandCat
         getData={getCategory}
         label="category"
-        name={name}
+        name={decodeURIComponent(name)}
         page={page}
         limit={limit}
       />
+      {/* <SpesificBrandCat
+        getData={getCategory}
+        label="category"
+        name={name}
+        page={page}
+        limit={limit}
+      /> */}
     </>
   );
 };

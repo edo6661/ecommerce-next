@@ -1,3 +1,4 @@
+"use server";
 import { currentUser } from "@clerk/nextjs";
 import { db } from "../../lib/database/index";
 
@@ -61,4 +62,17 @@ export const getRecommended = async () => {
   }
 
   return users;
+};
+
+export const getUserById = async (id: string) => {
+  try {
+    const user = await db.user.findUnique({
+      where: {
+        id,
+      },
+    });
+    return user;
+  } catch (err) {
+    console.error(err);
+  }
 };

@@ -15,11 +15,17 @@ export const getProductsWithPageLimit = async (page: number, limit: number) => {
     });
 };
 
-export const getProductById = async (id: string) => {
-  return db.product.findUnique({ where: { id } }).catch((err) => {
-    console.error(err);
-    throw new Error(`failed to fetch product ${id}`);
-  });
+export const getProductByName = async (name: string) => {
+  try {
+    return db.product.findFirst({
+      where: {
+        name,
+      },
+    });
+  } catch (error) {
+    console.error(error);
+    throw new Error("Internal Error");
+  }
 };
 
 export const createProduct = async (data: ConvertedProductType) => {

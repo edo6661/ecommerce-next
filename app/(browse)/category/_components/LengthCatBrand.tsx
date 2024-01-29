@@ -23,16 +23,15 @@ const LengthCatBrand = ({ name, label }: { name: string; label: string }) => {
     error: errBrand,
   } = useCountProductBrand(name);
 
-  if (isLoadCat || isLoadBrand) {
+  const isLoading = !brandPathname ? isLoadCat : isLoadBrand;
+  const isErr = !brandPathname ? isErrCat : isErrBrand;
+  const err = !brandPathname ? errCat : errBrand;
+
+  if (isLoading) {
     return <Skeleton className=" w-[157px] h-[24px]" />;
   }
-  if (isErrCat || isErrBrand) {
-    return (
-      <>
-        <p>{errCat?.message}</p>
-        <p>{errBrand?.message}</p>
-      </>
-    );
+  if (isErr) {
+    return <p>{err?.message}</p>;
   }
 
   const data = brandPathname ? dataBrand : dataCat;
@@ -40,7 +39,7 @@ const LengthCatBrand = ({ name, label }: { name: string; label: string }) => {
   return data?.totalProducts ? (
     <p> {data?.totalProducts} Results</p>
   ) : (
-    <p>No Product With {`${name} ${label}`}</p>
+    <p>No Product With {`${decodeURIComponent(name)} ${label}`}</p>
   );
 };
 

@@ -177,7 +177,7 @@
 }
 .swiper-button-next,
 .swiper-button-prev {
-  @apply dark:text-white text-muted-foreground shadow-muted-foreground sm:scale-100 scale-50 md:scale-75 lg:scale-90 !important;
+  @apply dark:text-white text-muted-foreground shadow-muted-foreground sm:scale-100 scale-50 md:scale-75 lg:scale-90 hover:scale-105 duration-300 opacity-85 hover:opacity-100 !important;
 }
 
 .swiper-button-next.swiper-button-disabled,

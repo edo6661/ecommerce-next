@@ -48,28 +48,22 @@ const ProductsCatBrand = ({ name, pageParams, limitParams }: Props) => {
       : allProductsBrandLength?.totalProducts / limitParams
   );
 
+  const products = !brandPathname ? catProducts : brandProducts;
+  const isLoading = !brandPathname ? isLoadingCat : isLoadingBrand;
+
   return (
     <>
       <div className="containerProducts ">
-        {brandPathname
-          ? brandProducts?.products.map((product) => {
-              const urls = product.photos.split(",");
-              return (
-                <div key={product.id}>
-                  <ProductsCard key={product.id} {...product} urls={urls} />
-                </div>
-              );
-            })
-          : catProducts?.products.map((product) => {
-              const urls = product.photos.split(",");
-              return (
-                <div key={product.id}>
-                  <ProductsCard key={product.id} {...product} urls={urls} />
-                </div>
-              );
-            })}
+        {products?.products.map((product) => {
+          const urls = product.photos.split(",");
+          return (
+            <div key={product.id}>
+              <ProductsCard key={product.id} {...product} urls={urls} />
+            </div>
+          );
+        })}
       </div>
-      {(isLoadingCat || isLoadingBrand) && (
+      {isLoading && (
         <div className="containerProducts">
           {Array.from({ length: limitParams }).map((_, i) => (
             <div key={i}>

@@ -17,6 +17,9 @@ interface StoreState {
   isOnFilteredToggle: () => void;
   isOnFilteredStar: boolean;
   isOnFilteredStarToggle: () => void;
+  isViewAll: boolean;
+  isOnViewAllToggle: () => void;
+  falseViewAll: () => void;
 }
 
 const useMugi = create<StoreState>((set) => ({
@@ -38,6 +41,9 @@ const useMugi = create<StoreState>((set) => ({
   isOnFilteredStar: false,
   isOnFilteredStarToggle: () =>
     set((state) => ({ isOnFilteredStar: !state.isOnFilteredStar })),
+  isViewAll: false,
+  isOnViewAllToggle: () => set((state) => ({ isViewAll: !state.isViewAll })),
+  falseViewAll: () => set(() => ({ isViewAll: false })),
 }));
 
 export default useMugi;

@@ -12,16 +12,17 @@ interface Props {
   label: string;
 }
 const SideCatBrandCard = ({ data, name, label }: Props) => {
-  const { isOnFiltered } = useMugi((state) => state);
-  const [isViewAll, setIsViewAll] = useState(false);
-
-  const toggleViewAll = () => setIsViewAll((prev) => !prev);
+  const { isOnFiltered, isViewAll, isOnViewAllToggle, falseViewAll } = useMugi(
+    (state) => state
+  );
 
   const optionalFiltered = isOnFiltered ? (isViewAll ? data.length : 5) : 0;
 
   useEffect(() => {
-    !isOnFiltered && setIsViewAll(false);
+    !isOnFiltered && falseViewAll();
   }, [isOnFiltered]);
+
+  const decodedName = decodeURIComponent(name);
 
   return (
     <>
@@ -32,7 +33,9 @@ const SideCatBrandCard = ({ data, name, label }: Props) => {
             .slice(0, optionalFiltered)
             .map((cat) => {
               const currentCat =
-                cat.name.toUpperCase() == name ? " focusedWord" : "hoveredText";
+                cat.name.toUpperCase() == decodedName
+                  ? " focusedWord"
+                  : "hoveredText";
               return (
                 <div key={cat.id}>
                   <Link
@@ -55,7 +58,7 @@ const SideCatBrandCard = ({ data, name, label }: Props) => {
                 <Button
                   variant="ghost"
                   className=" w-full "
-                  onClick={toggleViewAll}
+                  onClick={isOnViewAllToggle}
                 >
                   {isViewAll ? "View Less" : "View All"}
                 </Button>

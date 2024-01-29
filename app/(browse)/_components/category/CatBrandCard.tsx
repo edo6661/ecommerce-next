@@ -17,15 +17,15 @@ const CatBrandCard = ({ name, photo, label }: Category & { label: string }) => {
           viewport={{ once: true }}
         >
           <Link
-            href={`/${label.toLowerCase()}/${name}`}
+            href={`/${label.toLowerCase()}/${encodeURI(name)}`}
             className="cardCatBrand  "
           >
             <Image
               src={photo}
               alt={name}
-              width={88}
-              height={88}
-              className="rounded-full min-w-[88px] min-h-[88px]"
+              width={80}
+              height={80}
+              className="rounded-full min-w-[80px] min-h-[80px]"
             />
             <p>{name}</p>
           </Link>
