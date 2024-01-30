@@ -1,5 +1,5 @@
 import { getProductByName } from "@/services/product";
-import { getUserById } from "@/services/user";
+import { getUserByExternalId, getUserById } from "@/services/user";
 import { SignedIn, currentUser } from "@clerk/nextjs";
 import Link from "next/link";
 import React from "react";
@@ -13,8 +13,10 @@ const Product = async ({ params }: Props) => {
   const encodedName = encodeURI(decodedName);
 
   const product = await getProductByName(decodedName);
-  const user = await getUserById(product?.ownerId!);
-  console.log(user);
+
+  const self = await currentUser();
+  const user = await getUserByExternalId(self?.id!);
+
   const isOwner = product?.ownerId === user?.id;
   return (
     <section>

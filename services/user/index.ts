@@ -76,3 +76,16 @@ export const getUserById = async (id: string) => {
     console.error(err);
   }
 };
+
+export const getUserByExternalId = async (id: string) => {
+  try {
+    const user = await db.user.findUnique({
+      where: {
+        externalUserId: id,
+      },
+    });
+    return user;
+  } catch (err) {
+    console.error(err);
+  }
+};
