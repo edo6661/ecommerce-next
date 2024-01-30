@@ -20,6 +20,7 @@ export default authMiddleware({
     "/category(.*)",
     "/brand/(.*)",
     "/product(.*)",
+    "/api/webhooks/clerk(.*)",
   ],
 });
 
