@@ -14,14 +14,12 @@ const Product = async ({ params }: Props) => {
 
   const product = await getProductByName(decodedName);
   const user = await getUserById(product?.ownerId!);
-
+  console.log(user);
+  const isOwner = product?.ownerId === user?.id;
   return (
     <section>
       <p>product {decodedName}</p>
-      {/* TODO */}
-      {user?.id === product?.ownerId && (
-        <Link href={`/product/${encodedName}/edit`}>Edit</Link>
-      )}
+      {isOwner && <Link href={`/product/${encodedName}/edit`}>Edit</Link>}
     </section>
   );
 };
