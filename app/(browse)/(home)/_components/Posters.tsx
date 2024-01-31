@@ -25,6 +25,7 @@ const Posters = () => {
       prev === firstMockPosters.length - 1 ? 0 : prev + 1
     );
   };
+
   const handlePrevSlide = () => {
     setDirection(-1);
     setCurrentSlide((prev) =>

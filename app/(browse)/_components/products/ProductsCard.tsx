@@ -11,6 +11,7 @@ import React, { useEffect, useState } from "react";
 import { FaStar, FaUser } from "react-icons/fa";
 import { motion } from "framer-motion";
 import { cardProps, productCardProps } from "@/utils/framer-motion";
+import { usePathname } from "next/navigation";
 const ProductsCard = ({
   name,
   id,

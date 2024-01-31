@@ -120,7 +120,7 @@ export const categoryVars = {
 export const posterSlideVars = {
   initial: (direction: number) => {
     return {
-      x: direction > 0 ? 200 : -200,
+      x: direction > 0 ? 500 : -500,
       opacity: 0,
     };
   },
@@ -136,7 +136,7 @@ export const posterSlideVars = {
   },
   exit: (direction: number) => {
     return {
-      x: direction > 0 ? -200 : 200,
+      x: direction > 0 ? -500 : 500,
       opacity: 0,
       transition: {
         type: "spring",

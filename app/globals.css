@@ -112,6 +112,9 @@
   .ignorePadding {
     @apply py-0 !important;
   }
+  .borderShadowNeutral {
+    @apply shadow-neutral-500 shadow-sm px-4 pt-2 pb-8 rounded-xl;
+  }
 }
 
 /* ! mansory products */
@@ -191,6 +194,22 @@
 }
 .containerProducts > div > div {
   @apply shadow-muted shadow-md rounded-md;
+}
+
+/* ! product */
+.containerSwiperProduct {
+  @apply sm:col-span-2 space-y-4 mx-auto w-full sm:block hidden;
+}
+
+.containerSwiperProduct > div > .swiper-button-next,
+.containerSwiperProduct > div > .swiper-button-prev {
+  @apply scale-50 hover:scale-75 transition-transform duration-200 opacity-0  !important;
+}
+.notMainImg {
+  @apply w-full min-h-[88px] max-h-[88px] rounded-md  transition-all duration-200;
+}
+.online {
+  @apply relative;
 }
 
 /* ! specific category */

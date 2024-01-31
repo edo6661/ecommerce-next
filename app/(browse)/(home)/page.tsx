@@ -25,6 +25,7 @@ export default async function Home() {
     initialPageParam: 1,
     getNextPageParam: (lastPage: any) => lastPage.nextPage,
   });
+
   return (
     <>
       <section className={cn("container py-4 overflow-x-hidden")}>

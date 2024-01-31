@@ -34,7 +34,7 @@ const SpesificBrandCat = ({ name, page, limit, label, getData }: Props) => {
         </div>
       </article>
       <article className=" grid sm:grid-cols-3 gap-8 min-h-screen">
-        <div className=" shadow-neutral-500 shadow-sm px-4 pt-2 pb-8 rounded-xl ">
+        <div className=" borderShadowNeutral px-4 pt-2 pb-8 rounded-xl ">
           <SideCatBrand
             label={label}
             getData={getData}

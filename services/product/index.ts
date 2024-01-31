@@ -111,3 +111,17 @@ export const getProductsLengthByCategory = async (name: string) => {
     throw new Error("Internal Error");
   }
 };
+
+export const getProductsByOwnerId = async (ownerId: string) => {
+  try {
+    return db.product.findMany({
+      where: {
+        ownerId,
+      },
+      take: 8,
+    });
+  } catch (error) {
+    console.error(error);
+    throw new Error("Internal Error");
+  }
+};
