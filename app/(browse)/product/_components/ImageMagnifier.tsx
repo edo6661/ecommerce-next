@@ -54,7 +54,7 @@ const ImageMagnifier = ({ url, name, imageUrls }: Props) => {
           key={url}
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
-          transition={{ duration: 0.5 }}
+          transition={{ duration: 0.5, }}
         >
           <Image
             width={360}

@@ -65,6 +65,7 @@ model Product {
   owner    User     @relation(name: "Owner", fields: [ownerId], references: [id], onDelete: Cascade)
   category Category @relation(name: "Category", fields: [categoryId], references: [id], onDelete: Cascade)
   brand    Brand    @relation(name: "Brand", fields: [brandId], references: [id], onDelete: Cascade)
+  orderItems OrderItem[] @relation("ProductOrder")
 
   reviews Review[] @relation("ProductReviews")
   carts   Cart[]   @relation("CartProducts")
@@ -108,7 +109,39 @@ model Cart {
 
   user    User    @relation(fields: [userId], references: [id], onDelete: Cascade)
   product Product @relation(name: "CartProducts", fields: [productId], references: [id], onDelete: Cascade)
-
+  @@unique([userId, productId])
   @@index([userId])
   @@index([productId])
+}
+
+model Order{
+  id String @id @default(uuid())
+  userId String
+  createdAt DateTime @default(now())
+  status OrderStatus @default(PENDING)
+  
+  items OrderItem[]
+
+  @@index([userId])
+}
+
+model OrderItem{
+  id        String @id @default(uuid())
+  orderId   String
+  productId String
+  quantity  Int
+
+  order   Order   @relation(fields: [orderId], references: [id], onDelete: Cascade)
+  product Product @relation(name: "ProductOrder",fields: [productId], references: [id], onDelete: Cascade)
+
+  @@index([orderId])
+  @@index([productId])
+
+}
+
+enum OrderStatus{
+  PENDING
+  PROCESS
+  DELIVERED
+  CANCEL
 }

@@ -212,4 +212,7 @@
   @apply relative;
 }
 
-/* ! specific category */
+/* ! cart */
+.cartContainer {
+  @apply borderShadowNeutral py-4 px-2;
+}

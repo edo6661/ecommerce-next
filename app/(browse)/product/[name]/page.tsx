@@ -28,6 +28,7 @@ import SpecificProduct from "../_components/SpecificProduct";
 import DetailProfilePhotoProduct from "../_components/DetailProfilePhotoProduct";
 import BottomSectionProduct from "../_components/BottomSectionProduct";
 import FormBuyProduct from "../_components/FormBuyProduct";
+import { getCartByUserId } from "@/services/cart";
 interface Props {
   params: { name: string };
 }
@@ -40,6 +41,11 @@ const Product = async ({ params }: Props) => {
   const category = await getCategoryById(product?.categoryId!);
   const owner = await getUserById(product?.ownerId!);
   const ownerProducts = await getProductsByOwnerId(owner?.id!);
+  const cart = await getCartByUserId(user?.id!);
+
+  const existingProductInCart = cart.some(
+    (cart) => cart.productId === product?.id!
+  );
 
   const isOwner = product?.ownerId === user?.id;
   const imageProduct = product?.photos.split(",")!;
@@ -56,6 +62,9 @@ const Product = async ({ params }: Props) => {
           <FormBuyProduct
             quantity={product?.quantity!}
             price={product?.price!}
+            userId={user?.id!}
+            id={product?.id!}
+            existingProductInCart={existingProductInCart}
           />
           <RatingConclusion />
         </div>

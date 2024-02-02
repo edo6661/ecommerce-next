@@ -20,7 +20,7 @@ export const fetchProductsBrandPagi = async (
   } catch (error) {
     console.error(error);
     throw new Error("internal error");
-  }
+}
 };
 
 const useProductBrandPagi = (page: number, name: string, limit: number) => {

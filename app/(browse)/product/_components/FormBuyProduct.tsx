@@ -2,19 +2,30 @@
 import Title from "@/components/shared/Title";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import React, { useMemo, useState } from "react";
+import React, { useMemo, useState, useTransition } from "react";
 import { FaHeart, FaRegHeart, FaShare, FaShoppingCart } from "react-icons/fa";
 import { CiMoneyBill } from "react-icons/ci";
+import { onAddToCart } from "@/actions/cart";
+import { toast } from "sonner";
+import { dev } from "@/helpers/initial";
+import { useRouter } from "next/navigation";
 
 const FormBuyProduct = ({
   quantity,
   price,
+  id,
+  userId,
+  existingProductInCart,
 }: {
   quantity: number;
   price: number;
+  id: string;
+  userId: string;
+  existingProductInCart: boolean;
 }) => {
   const [qty, setQty] = useState(1);
   const [total, setTotal] = useState(price);
+  const [isPending, startTransition] = useTransition();
 
   const handleQty = (e: React.ChangeEvent<HTMLInputElement>) =>
     setQty(+e.target.value);
@@ -25,11 +36,22 @@ const FormBuyProduct = ({
   }, [qty, price, total]);
 
   const handleSubmit = () => {
-    const data = {
-      qty,
-      total,
-    };
-    console.log(data);
+    if (existingProductInCart) {
+      return toast.error("Product already in cart");
+    }
+    if (!userId) {
+      return toast.error("Please login first");
+    }
+    startTransition(() => {
+      onAddToCart(id, quantity)
+        .then((product) => {
+          toast.success(`Successfully add to cart ${product.product.name}`);
+        })
+        .catch((err) => {
+          console.error(err);
+          toast.error(dev);
+        });
+    });
   };
 
   return (
@@ -58,7 +80,11 @@ const FormBuyProduct = ({
         </div>
       </div>
       <div className="fl-center flex-wrap text-lg pt-2">
-        <Button className="flex-1 rounded-none rounded-l-xl fl-center gap-1">
+        <Button
+          className="flex-1 rounded-none rounded-l-xl fl-center gap-1"
+          onClick={() => handleSubmit()}
+          disabled={isPending}
+        >
           <span>
             <FaShoppingCart />
           </span>
@@ -67,7 +93,6 @@ const FormBuyProduct = ({
         <Button
           className="flex-1 rounded-none rounded-r-xl fl-center gap-1"
           variant="secondary"
-          onClick={handleSubmit}
         >
           <span>
             <CiMoneyBill />

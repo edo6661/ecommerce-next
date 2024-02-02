@@ -10,7 +10,7 @@ import { A11y, Navigation, Scrollbar } from "swiper/modules";
 import Image from "next/image";
 import useWidth from "@/hooks/useWidth";
 import { cn } from "@/lib/utils";
-
+import { motion } from "framer-motion";
 const MobileSliderProduct = ({
   imageUrls,
   name,
@@ -22,13 +22,20 @@ const MobileSliderProduct = ({
 
   const cardSlider = imageUrls.map((url, i) => (
     <SwiperSlide key={url}>
-      <Image
-        src={url}
-        alt={`${name} ${i + 1 + 1}`}
-        width={560}
-        height={360}
-        className={cn("h-[360px] mx-auto rounded-xl w-[560px]")}
-      />
+      <motion.div
+        key={url}
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ duration: 0.5 }}
+      >
+        <Image
+          src={url}
+          alt={`${name} ${i + 1 + 1}`}
+          width={560}
+          height={360}
+          className={cn(" mx-auto rounded-xl object-contain  max-h-[510px]")}
+        />
+      </motion.div>
     </SwiperSlide>
   ));
 

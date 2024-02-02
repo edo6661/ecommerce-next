@@ -11,9 +11,9 @@ const RightSide = () => {
     <>
       <div className="fl-center gap-2 ">
         <div className="sm:fl-center sm:gap-4 gap-2 hidden">
-          <button>
+          <Link href="/cart">
             <ShoppingCart className=" w-7 h-7" />
-          </button>
+          </Link>
           <Link href="/add-product">
             <PlusCircle className=" w-7 h-7" />
           </Link>
