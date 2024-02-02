@@ -54,3 +54,20 @@ export const removeFromCart = async (id: string) => {
     throw new Error("Internal Error");
   }
 };
+
+export const updateQuantity = async (id: string, quantity: number) => {
+  try {
+    await db.cart.update({
+      where: {
+        id,
+      },
+      data: {
+        quantity,
+      },
+      select: undefined,
+    });
+  } catch (error) {
+    console.error(error);
+    throw new Error("Internal Error");
+  }
+};

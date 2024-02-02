@@ -1,5 +1,11 @@
 import { create } from "zustand";
 
+interface Cart {
+  id: string;
+  quantity: number;
+  price: number;
+}
+
 interface StoreState {
   isNav: boolean;
   toggleNav: () => void;
@@ -20,6 +26,8 @@ interface StoreState {
   isViewAll: boolean;
   isOnViewAllToggle: () => void;
   falseViewAll: () => void;
+  totalPrice: number;
+  setTotalPrice: (totalPrice: number) => void;
 }
 
 const useMugi = create<StoreState>((set) => ({
@@ -44,6 +52,8 @@ const useMugi = create<StoreState>((set) => ({
   isViewAll: false,
   isOnViewAllToggle: () => set((state) => ({ isViewAll: !state.isViewAll })),
   falseViewAll: () => set(() => ({ isViewAll: false })),
+  totalPrice: 0,
+  setTotalPrice: (totalPrice: number) => set(() => ({ totalPrice })),
 }));
 
 export default useMugi;

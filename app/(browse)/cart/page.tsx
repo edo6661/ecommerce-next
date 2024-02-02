@@ -13,6 +13,7 @@ import Link from "next/link";
 import TotalPriceAction from "./_components/TotalPriceAction";
 import { Checkbox } from "@/components/ui/checkbox";
 import { Separator } from "@/components/ui/separator";
+import WrapperProductsCard from "./_components/WrapperProductsCard";
 
 const page = async () => {
   const self = await currentUser();
@@ -45,10 +46,7 @@ const page = async () => {
             </div>
             <Separator className=" mb-4" />
             <div className="space-y-6">
-              {cartExist &&
-                cart.map((product) => {
-                  return <ProductsCart key={product.id} {...product} />;
-                })}
+              {cartExist && <WrapperProductsCard cart={cart} />}
             </div>
           </div>
           {!cartExist && (

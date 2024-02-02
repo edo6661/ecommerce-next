@@ -92,7 +92,7 @@ const Product = async ({ params }: Props) => {
           />
         </div>
       </article>
-      {/* {isOwner && <Link href={`/product/${encodedName}/edit`}>Edit</Link>} */}
+      {isOwner && <Link href={`/product/${params.name}/edit`}>Edit</Link>}
     </section>
   );
 };
