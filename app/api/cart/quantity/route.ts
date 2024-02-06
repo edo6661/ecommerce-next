@@ -6,7 +6,6 @@ export const dynamic = "force-dynamic";
 export const PATCH = async (req: Request, res: Response) => {
   try {
     const data = await req.json();
-    console.log(data);
     // const product = await db.cart.update({
     //   where: {
     //     id,

@@ -1,5 +1,10 @@
 "use server";
-import { addToCart, removeFromCart, updateQuantity } from "@/services/cart";
+import {
+  addToCart,
+  removeFromCart,
+  removeMultipleFromCart,
+  updateQuantity,
+} from "@/services/cart";
 import { revalidatePath } from "next/cache";
 
 export const onAddToCart = async (productId: string, quantity: number) => {
@@ -16,6 +21,16 @@ export const onAddToCart = async (productId: string, quantity: number) => {
 export const onRemoveFromCart = async (id: string) => {
   try {
     const cart = await removeFromCart(id);
+    revalidatePath("/cart");
+    return cart;
+  } catch (error) {
+    console.error(error);
+    throw new Error("Internal Error");
+  }
+};
+export const onMultipleRemoveFromCart = async (ids: string[]) => {
+  try {
+    const cart = await removeMultipleFromCart(ids);
     revalidatePath("/cart");
     return cart;
   } catch (error) {

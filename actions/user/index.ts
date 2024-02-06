@@ -1,4 +1,7 @@
+"use server";
 import { db } from "@/lib/database";
+import { getSelf } from "@/services/user";
+import { revalidatePath } from "next/cache";
 
 export const getUserByUserId = (userId: string) => {
   try {
@@ -14,5 +17,23 @@ export const getUserByUserId = (userId: string) => {
   } catch (err) {
     console.error(err);
     throw new Error("Error getting user by userId");
+  }
+};
+
+export const editAddress = async (address: string) => {
+  try {
+    const { id } = await getSelf();
+    await db.user.update({
+      data: {
+        address,
+      },
+      where: {
+        id,
+      },
+    });
+    revalidatePath("/cart/shipment");
+  } catch (error) {
+    console.error(error);
+    throw new Error("Error adding address to user");
   }
 };

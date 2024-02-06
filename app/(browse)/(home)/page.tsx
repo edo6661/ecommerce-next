@@ -15,7 +15,6 @@ import {
   dehydrate,
 } from "@tanstack/react-query";
 import getQueryClient from "@/lib/queryClient";
-import { CardProductsSkeleton } from "../_components/products/ProductsCard";
 
 export default async function Home() {
   const queryClient = getQueryClient();

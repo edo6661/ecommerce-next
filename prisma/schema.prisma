@@ -24,6 +24,7 @@ model User {
   followedBy Follow[]  @relation("FollowedBy")
   owning     Product[] @relation("Owner")
   Cart       Cart[]
+  orders     Order[]
 }
 
 model Follow {
@@ -39,6 +40,7 @@ model Follow {
   // ! kalo user dihapus, semua entitas follow yang terkait juga akan dihapus (onDelete: Cascade).
   follower  User @relation(name: "Following", fields: [followerId], references: [id], onDelete: Cascade)
   following User @relation(name: "FollowedBy", fields: [followingId], references: [id], onDelete: Cascade)
+  
 
   // ! user tidak dapat mengikuti user yang sama lebih dari sekali.
   @@unique([followerId, followingId])
@@ -114,13 +116,27 @@ model Cart {
   @@index([productId])
 }
 
+model Shipping{
+  id String @id @default(uuid())
+  name String
+}
+model Payment{
+  id String @id @default(uuid())
+  name String
+}
+
 model Order{
   id String @id @default(uuid())
   userId String
-  createdAt DateTime @default(now())
+  total Int
+  shippingId String
+  paymentId String  
+
   status OrderStatus @default(PENDING)
-  
   items OrderItem[]
+  createdAt DateTime @default(now())
+  
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
 
   @@index([userId])
 }
@@ -136,7 +152,6 @@ model OrderItem{
 
   @@index([orderId])
   @@index([productId])
-
 }
 
 enum OrderStatus{

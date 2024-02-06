@@ -1,17 +1,24 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 "use client";
 
-import { Cart, Product } from "@prisma/client";
+import { Cart, Product, User } from "@prisma/client";
 import ProductsCart from "./ProductsCart";
 import { useCallback, useEffect, useMemo, useState } from "react";
 import useMugi from "@/hooks/useMugi";
-import { Button } from "@/components/ui/button";
+import TopProductsCart from "./TopProductsCart";
+import CartAddress from "./CartAddress";
+import { motion, AnimatePresence } from "framer-motion";
 
 const WrapperProductsCard = ({
   cart,
+  user,
 }: {
   cart: (Cart & { product: Product })[];
+  user: User;
 }) => {
-  const { setTotalPrice } = useMugi((state) => state);
+  const { setTotalPrice, step, checked, setChecked, setCheckedAll } = useMugi(
+    (state) => state
+  );
 
   const initialKey = cart.reduce(
     (obj, product) => ({
@@ -20,22 +27,6 @@ const WrapperProductsCard = ({
     }),
     {}
   );
-
-  const [checked, setChecked] = useState<Record<string, boolean>>(initialKey);
-
-  const handleChecked = useCallback((id: string) => {
-    setChecked((prev) => ({ ...prev, [id]: !prev[id] }));
-  }, []);
-
-  const handleCheckedAll = useCallback(() => {
-    setChecked((prev) => {
-      const allChecked = Object.values(prev).every((value) => value === true);
-      return Object.keys(prev).reduce(
-        (obj, key) => ({ ...obj, [key]: !allChecked }),
-        {}
-      );
-    });
-  }, []);
 
   const totalPrice = useMemo(() => {
     return cart
@@ -47,26 +38,38 @@ const WrapperProductsCard = ({
   }, [cart, checked]);
 
   useEffect(() => {
+    setChecked(initialKey);
+  }, []);
+
+  useEffect(() => {
+    const allChecked = Object.values(checked).every((value) => value === true);
+    if (allChecked) {
+      setCheckedAll(true);
+    } else {
+      setCheckedAll(false);
+    }
+  }, [checked]);
+
+  useEffect(() => {
     setTotalPrice(totalPrice);
   }, [totalPrice]);
 
-  const allChecked = Object.values(checked).every((value) => value === true);
+  const optionalProducts = !step
+    ? cart
+    : cart.filter((product) => checked[product.productId]);
 
   return (
     <>
-      {cart.map((product) => {
-        return (
-          <ProductsCart
-            key={product.id}
-            {...product}
-            handleChecked={handleChecked}
-            checked={checked}
-          />
-        );
-      })}
-      <Button onClick={() => handleCheckedAll()}>
+      {step > 0 && <CartAddress user={user} />}
+      <TopProductsCart cart={cart} />
+      <div className="space-y-6">
+        {optionalProducts.map((product) => {
+          return <ProductsCart key={product.id} {...product} />;
+        })}
+      </div>
+      {/* <Button onClick={() => handleCheckedAll()}>
         {allChecked ? "Unselect All" : "Select All"}
-      </Button>
+      </Button> */}
     </>
   );
 };

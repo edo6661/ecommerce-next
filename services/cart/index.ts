@@ -54,6 +54,24 @@ export const removeFromCart = async (id: string) => {
     throw new Error("Internal Error");
   }
 };
+export const removeMultipleFromCart = async (ids: string[]) => {
+  try {
+    const { id: userId } = await getSelf();
+    const deleteRequests = ids.map((productId) => {
+      return db.cart.deleteMany({
+        where: {
+          productId,
+          userId,
+        },
+      });
+    });
+
+    await Promise.all(deleteRequests);
+  } catch (error) {
+    console.error(error);
+    throw new Error("Internal Error");
+  }
+};
 
 export const updateQuantity = async (id: string, quantity: number) => {
   try {

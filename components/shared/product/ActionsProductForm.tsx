@@ -114,7 +114,6 @@ const AddProductForm = ({
 
   const onSubmit = async (data: ProductData) => {
     if (!form.formState.isDirty) {
-      console.log("something wrong with those inputs");
       return;
     }
     const convertedType = {

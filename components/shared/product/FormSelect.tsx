@@ -6,11 +6,11 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import { Category } from "@prisma/client";
+import { Category, Payment } from "@prisma/client";
 import React from "react";
 
 interface Props {
-  items: Category[];
+  items: Category[] | Payment[];
   label: string;
 }
 

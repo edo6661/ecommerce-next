@@ -12,27 +12,24 @@ import { Separator } from "@/components/ui/separator";
 import Link from "next/link";
 import { Input } from "@/components/ui/input";
 import { FaHeart, FaTrash } from "react-icons/fa";
-import { memo, useMemo, useState, useTransition } from "react";
+import { memo, useEffect, useMemo, useState, useTransition } from "react";
 import { dev } from "@/helpers/initial";
 import { toast } from "sonner";
 import { AnimatePresence, motion } from "framer-motion";
 import { productCardProps } from "@/utils/framer-motion";
 import { useDebouncedCallback } from "use-debounce";
-import { updateQuantity } from "@/services/cart";
+import { onAddOrder } from "@/actions/order";
+import useMugi from "@/hooks/useMugi";
+import MockShipping from "./MockShipping";
 
 interface Props extends Cart {
   product: Product;
-  handleChecked: (id: string) => void;
-  checked: Record<string, boolean>;
 }
 
-const ProductsCart = ({
-  id,
-  quantity,
-  product,
-  handleChecked,
-  checked,
-}: Props) => {
+const ProductsCart = ({ id, quantity, product }: Props) => {
+  const { handleChecked, checked, step, setIsBuyPending } = useMugi(
+    (state) => state
+  );
   const [isPending, startTransition] = useTransition();
   const [qty, setQty] = useState(quantity ?? 1);
 
@@ -44,13 +41,13 @@ const ProductsCart = ({
     startTransition(() => {
       onUpdateQuantity(id, num)
         .then(() => {
-          toast.success("Quantity updated");
+          return;
         })
         .catch(() => {
           toast.error(dev);
         });
     });
-  }, 2000);
+  }, 1000);
 
   const total = useMemo(() => {
     return product?.price! * qty;
@@ -66,17 +63,34 @@ const ProductsCart = ({
     });
   };
 
+  const exampleOrder = () => {
+    const mockData = {};
+    startTransition(() => {
+      onAddOrder;
+    });
+  };
+
+  useEffect(() => {
+    setIsBuyPending(isPending);
+  }, [isPending]);
+
   const photo = product.photos.split(",")[0];
 
   return (
     <>
       <div className="flex flex-col gap-2">
         <div className="flex gap-4 ">
-          <Checkbox
-            onCheckedChange={() => handleChecked(product.id)}
-            checked={checked[product.id]}
-          />
-          <AnimatePresence>
+          <AnimatePresence initial={false}>
+            {!step && (
+              <motion.div>
+                <Checkbox
+                  onCheckedChange={() => handleChecked(product.id)}
+                  checked={checked[product.id]}
+                />
+              </motion.div>
+            )}
+          </AnimatePresence>
+          <AnimatePresence initial={false}>
             <motion.div
               variants={productCardProps}
               initial="initial"
@@ -97,40 +111,69 @@ const ProductsCart = ({
             </motion.div>
           </AnimatePresence>
           <div className="flex flex-col w-full h-full">
-            <label htmlFor={`qty ${product.name}`}>
-              <div className="flex justify-between ">
-                <p>{upperFirst(product.name)}</p>
-                <p>Rp {product.price}</p>
-              </div>
-              <div className="flex justify-between focusedWord ">
-                <p>Some Variant</p>
-                <p>{total}</p>
-              </div>
-            </label>
-            <Separator />
-            <div className=" self-end fl-center gap-2">
-              <Button variant="ghost" disabled={isPending}>
-                <FaHeart />
-              </Button>
-              <Button
-                variant="ghost"
-                onClick={() => handleDelete(id)}
-                disabled={isPending}
-              >
-                <FaTrash />
-              </Button>
-              <Input
-                placeholder="Qty"
-                type="number"
-                className=" w-20 rounded-md"
-                id={`qty ${product.name}`}
-                min={1}
-                max={product.quantity!}
-                onChange={handleQty}
-                value={qty}
-                disabled={isPending}
-              />
-            </div>
+            <AnimatePresence initial={false}>
+              {!step && (
+                <>
+                  <motion.label htmlFor={`qty ${product.name}`}>
+                    <div className="flex justify-between ">
+                      <p>{upperFirst(product.name)}</p>
+                      <p>Rp {product.price}</p>
+                    </div>
+                    <div className="flex justify-between focusedWord ">
+                      <p>Some Variant</p>
+                      <p>{total}</p>
+                    </div>
+                  </motion.label>
+                  <Separator />
+                </>
+              )}
+            </AnimatePresence>
+            <AnimatePresence initial={false}>
+              {step && (
+                <>
+                  <motion.label htmlFor={`qty ${product.name}`}>
+                    <div className="flex justify-between ">
+                      <p>{upperFirst(product.name)}</p>
+                      <p>
+                        <span className="focusedWord">{qty}x</span> Rp{" "}
+                        {product.price}
+                      </p>
+                    </div>
+                    <div className="flex justify-between focusedWord ">
+                      <p>Some Variant</p>
+                      <p>{total}</p>
+                    </div>
+                  </motion.label>
+                  <Separator />
+                </>
+              )}
+            </AnimatePresence>
+            <AnimatePresence initial={false}>
+              {!step && (
+                <motion.div className=" self-end fl-center gap-2">
+                  <Button variant="ghost" disabled={isPending}>
+                    <FaHeart />
+                  </Button>
+                  <Button
+                    variant="ghost"
+                    onClick={() => handleDelete(id)}
+                    disabled={isPending}
+                  >
+                    <FaTrash />
+                  </Button>
+                  <Input
+                    placeholder="Qty"
+                    type="number"
+                    className=" w-20 rounded-md"
+                    id={`qty ${product.name}`}
+                    min={1}
+                    max={product.quantity!}
+                    onChange={handleQty}
+                    value={qty}
+                  />
+                </motion.div>
+              )}
+            </AnimatePresence>
           </div>
         </div>
       </div>
@@ -138,4 +181,4 @@ const ProductsCart = ({
   );
 };
 
-export default memo(ProductsCart);
+export default ProductsCart;
