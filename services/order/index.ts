@@ -1,4 +1,3 @@
-"use server";
 import { db } from "@/lib/database";
 import { getSelf } from "../user";
 

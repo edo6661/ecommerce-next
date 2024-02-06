@@ -34,7 +34,7 @@ const CartAddress = ({ user: self }: { user: User }) => {
   };
 
   const btn = (
-    <Button onClick={handleSubmit} disabled={address.length === 0 || isPending}>
+    <Button onClick={handleSubmit} disabled={address == "" || isPending}>
       Save
     </Button>
   );
