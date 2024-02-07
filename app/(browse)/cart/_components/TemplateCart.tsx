@@ -17,6 +17,8 @@ interface Props {
   shipping: Shipping[];
 }
 
+// TODO CHECK YANG KURANG
+
 const TemplateCart = async ({
   cart,
   cartExist,
@@ -28,7 +30,7 @@ const TemplateCart = async ({
   return (
     <section className="container py-4 ">
       <Title label={label} />
-      <div className=" sm:grid sm:grid-cols-3 gap-4 flex flex-col ">
+      <div className=" sm:grid sm:grid-cols-3 gap-4 flex flex-col relative">
         <div
           className={`sm:col-span-2 cartContainer relative ${
             cartExist ? "block" : "hidden"
@@ -61,21 +63,19 @@ const TemplateCart = async ({
                   <Link href="/">
                     <Button>Start shopping</Button>
                   </Link>
-                  {/* <Link href="/" className="hoveredText">
-                      Start shopping
-                    </Link> */}
                 </div>
               </div>
             </div>
           </div>
         )}
         {cart.length > 0 && (
-          <div className="cartContainer">
-            <Title label="Shopping summary" />
+          <div className="cartContainer sm:static fixed bottom-0 left-0 w-full ">
+            <Title label="Shopping summary" className="sm:block hidden" />
             <TotalPriceAction
               cart={cart}
               payment={payment}
               shipping={shipping}
+              user={user}
             />
           </div>
         )}

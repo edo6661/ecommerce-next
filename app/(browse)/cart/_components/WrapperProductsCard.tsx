@@ -3,7 +3,7 @@
 
 import { Cart, Product, User } from "@prisma/client";
 import ProductsCart from "./ProductsCart";
-import { useCallback, useEffect, useMemo, useState } from "react";
+import { useEffect, useMemo } from "react";
 import useMugi from "@/hooks/useMugi";
 import TopProductsCart from "./TopProductsCart";
 import CartAddress from "./CartAddress";
@@ -67,9 +67,6 @@ const WrapperProductsCard = ({
           return <ProductsCart key={product.id} {...product} />;
         })}
       </div>
-      {/* <Button onClick={() => handleCheckedAll()}>
-        {allChecked ? "Unselect All" : "Select All"}
-      </Button> */}
     </>
   );
 };

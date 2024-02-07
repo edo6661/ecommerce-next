@@ -37,12 +37,16 @@ const TopProductsCart = ({
     });
   };
 
+  const totalCheckedProducts = Object.keys(checked).filter(
+    (key) => checked[key]
+  );
+
   return (
     <>
       <AnimatePresence initial={false}>
         {!step && (
           <>
-            <motion.div className="fl-center justify-between ">
+            <motion.div className="sm:fl-center justify-between hidden" layout>
               <div className="fl-center gap-4">
                 <Checkbox
                   onCheckedChange={handleCheckedAll}
@@ -62,6 +66,34 @@ const TopProductsCart = ({
                 Delete
               </Button>
             </motion.div>
+            <AnimatePresence>
+              {totalCheckedProducts.length > 0 && (
+                <>
+                  <motion.div
+                    className="fl-center justify-between pl-2 sm:hidden "
+                    layout
+                    animate={{ opacity: 1 }}
+                    transition={{ ease: "easeInOut", duration: 0.3 }}
+                    whileInView={{ opacity: 1 }}
+                    initial={{ opacity: 0 }}
+                    exit={{ opacity: 0 }}
+                  >
+                    <div className="fl-center gap-4">
+                      <p className="text-lg">{totalCheckedProducts.length}</p>
+                      <p className="focusedWord ">Selected Product</p>
+                    </div>
+                    <Button
+                      variant="link"
+                      className="hoveredText"
+                      onClick={handleDelete}
+                      disabled={isPending}
+                    >
+                      Delete
+                    </Button>
+                  </motion.div>
+                </>
+              )}
+            </AnimatePresence>
             <Separator className=" mb-4" />
           </>
         )}

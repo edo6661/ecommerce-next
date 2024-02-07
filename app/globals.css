@@ -214,5 +214,5 @@
 
 /* ! cart */
 .cartContainer {
-  @apply borderShadowNeutral py-4 px-2;
+  @apply sm:borderShadowNeutral py-4 px-2;
 }

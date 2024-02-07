@@ -37,10 +37,7 @@ const ProfilePhotoProduct = ({ owner }: { owner: User }) => {
         >
           {upperFirst(owner?.username!)}
         </Link>
-        <p className="relative">
-          Online
-          <span className="absolute right-4 top-1 bg-green-500 w-2 h-2 rounded-full " />
-        </p>
+
         <p>{owner?.address}</p>
         <p>Tangerang</p>
       </div>

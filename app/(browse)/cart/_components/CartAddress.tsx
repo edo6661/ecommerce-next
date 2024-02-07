@@ -11,6 +11,8 @@ import { AnimatePresence, motion } from "framer-motion";
 import { ArrowBigLeft } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { useEffect, useState, useTransition } from "react";
+import { CiEdit } from "react-icons/ci";
+import { FaPlus } from "react-icons/fa";
 import { toast } from "sonner";
 
 const CartAddress = ({ user: self }: { user: User }) => {
@@ -50,7 +52,7 @@ const CartAddress = ({ user: self }: { user: User }) => {
 
   useEffect(() => {
     setAddress(self.address!);
-  }, []);
+  }, [self.address]);
 
   return (
     <>
@@ -65,7 +67,7 @@ const CartAddress = ({ user: self }: { user: User }) => {
             layout
           >
             <div className="fl-center justify-between">
-              <h3 className="text-lg focusedWord">Shipping Address</h3>
+              <h3 className="text-lg">Shipping Address</h3>
               <Button
                 variant="link"
                 className="hoveredText"
@@ -76,24 +78,28 @@ const CartAddress = ({ user: self }: { user: User }) => {
             </div>
 
             <div className=" space-y-2">
-              <p>{upperFirst(self.username)}&apos;s Home</p>
+              <p className=" font-semibold">
+                {upperFirst(self.username)}&apos;s Home
+              </p>
               {self.address ? (
                 <>
-                  <p>{self.address}</p>
-                  <Modal
-                    label="Address"
-                    title="Edit Address"
-                    cancel="Cancel"
-                    action="Action"
-                    button={btn}
-                  >
-                    {input}
-                  </Modal>
+                  <div className="fl-center gap-2">
+                    <p className=" focusedWord">{self.address}</p>
+                    <Modal
+                      label="Address"
+                      icon={<CiEdit />}
+                      cancel="Cancel"
+                      action="Action"
+                      button={btn}
+                    >
+                      {input}
+                    </Modal>
+                  </div>
                 </>
               ) : (
                 <Modal
+                  icon={<FaPlus />}
                   label="Address"
-                  title="Add Address"
                   cancel="Cancel"
                   action="Action"
                   button={btn}

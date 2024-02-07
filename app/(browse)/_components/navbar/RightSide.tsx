@@ -5,17 +5,29 @@ import Link from "next/link";
 import React, { useState } from "react";
 import { RxDividerVertical } from "react-icons/rx";
 import ToggleNav from "./ToggleNav";
+import { getCartLength } from "@/services/cart";
+import { LiaJediOrder } from "react-icons/lia";
 
-const RightSide = () => {
+const RightSide = async () => {
+  const cartLength = await getCartLength();
+
   return (
     <>
       <div className="fl-center gap-2 ">
         <div className="sm:fl-center sm:gap-4 gap-2 hidden">
-          <Link href="/cart">
+          <Link href="/cart" className="relative">
             <ShoppingCart className=" w-7 h-7" />
+            <SignedIn>
+              <span className="absolute -top-3 -right-4 bg-red-500 px-2 rounded-full">
+                {cartLength}
+              </span>
+            </SignedIn>
           </Link>
           <Link href="/add-product">
             <PlusCircle className=" w-7 h-7" />
+          </Link>
+          <Link href="/orders">
+            <LiaJediOrder size={28} />
           </Link>
         </div>
         <div className=" opacity-40 sm:block hidden">

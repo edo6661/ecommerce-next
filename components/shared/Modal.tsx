@@ -10,23 +10,24 @@ import {
   AlertDialogTrigger,
 } from "@/components/ui/alert-dialog";
 import { Button } from "../ui/button";
-import { Input } from "../ui/input";
-import { FormEvent } from "react";
+import { IconType } from "react-icons";
 
 interface ModalProps {
   label: string;
   children: React.ReactNode;
   cancel: string;
   action: string;
-  title: string;
-  button: React.ReactNode;
+  button?: React.ReactNode;
+  icon: React.ReactNode;
 }
 
-const Modal = ({ label, children, cancel, title, button }: ModalProps) => {
+const Modal = ({ label, children, cancel, button, icon }: ModalProps) => {
   return (
     <AlertDialog>
       <AlertDialogTrigger asChild>
-        <Button variant="outline">{title}</Button>
+        <Button variant="ghost">
+          <span>{icon}</span>
+        </Button>
       </AlertDialogTrigger>
       <AlertDialogContent>
         <AlertDialogHeader>

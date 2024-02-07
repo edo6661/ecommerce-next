@@ -1,4 +1,3 @@
-"use server";
 import { currentUser } from "@clerk/nextjs";
 import { db } from "../../lib/database/index";
 

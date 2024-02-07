@@ -89,3 +89,18 @@ export const updateQuantity = async (id: string, quantity: number) => {
     throw new Error("Internal Error");
   }
 };
+
+export const getCartLength = async () => {
+  try {
+    const { id: userId } = await getSelf();
+    const cart = await db.cart.count({
+      where: {
+        userId,
+      },
+    });
+    return cart;
+  } catch (err) {
+    console.error(err);
+    return [];
+  }
+};
