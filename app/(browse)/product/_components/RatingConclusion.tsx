@@ -6,7 +6,7 @@ import ProgressRating from "./ProgressRating";
 const RatingConclusion = () => {
   return (
     <>
-      <Title label="Rating Conclusion" className=" " />
+      <Title label="Mock Conclusion" className=" " />
       <div className="flex flex-col gap-2 items-center ">
         <div className="flex text-xl gap-2 text-center">
           <span>
@@ -16,7 +16,7 @@ const RatingConclusion = () => {
             4.8 <span>/5.0</span>
           </p>
         </div>
-        <p>300 rating • 120 ulasan</p>
+        <p>300 Mock • 120 ulasan</p>
       </div>
       <ProgressRating />
     </>

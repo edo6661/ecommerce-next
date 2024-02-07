@@ -78,13 +78,12 @@ const useMugi = create<StoreState>((set) => ({
     })),
   handleCheckedAll: () =>
     set((state) => {
-      // ! kalo semua value checked nya true maka nge return true dan sebalike
       const allChecked = Object.values(state.checked).every(
         (value) => value === true
       );
       return {
         ...state,
-        // ! kalo semua value checked nya true maka semua value checked nya jadi false dan sebalike
+
         checked: Object.keys(state.checked).reduce(
           (acc, key) => ({ ...acc, [key]: !allChecked }),
           {}

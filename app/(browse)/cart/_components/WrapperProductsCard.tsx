@@ -7,7 +7,8 @@ import { useEffect, useMemo } from "react";
 import useMugi from "@/hooks/useMugi";
 import TopProductsCart from "./TopProductsCart";
 import CartAddress from "./CartAddress";
-import { motion, AnimatePresence } from "framer-motion";
+import { useRouter } from "next/router";
+import { usePathname } from "next/navigation";
 
 const WrapperProductsCard = ({
   cart,
@@ -16,9 +17,9 @@ const WrapperProductsCard = ({
   cart: (Cart & { product: Product })[];
   user: User;
 }) => {
-  const { setTotalPrice, step, checked, setChecked, setCheckedAll } = useMugi(
-    (state) => state
-  );
+  const pathname = usePathname();
+  const { setTotalPrice, step, checked, setChecked, setCheckedAll, setStep } =
+    useMugi((state) => state);
 
   const initialKey = cart.reduce(
     (obj, product) => ({
@@ -53,6 +54,10 @@ const WrapperProductsCard = ({
   useEffect(() => {
     setTotalPrice(totalPrice);
   }, [totalPrice]);
+
+  useEffect(() => {
+    setStep(0);
+  }, [pathname]);
 
   const optionalProducts = !step
     ? cart

@@ -8,6 +8,7 @@ export const onAddOrder = async (body: Partial<Order>) => {
   try {
     const user = await getSelf();
     await addOrder({ body: { ...body, userId: user.id } });
+
     revalidatePath("/orders");
   } catch (err) {
     console.error(err);

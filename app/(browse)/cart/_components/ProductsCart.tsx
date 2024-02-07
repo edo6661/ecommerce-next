@@ -34,6 +34,9 @@ const ProductsCart = ({ id, quantity, product }: Props) => {
   const [qty, setQty] = useState(quantity ?? 1);
 
   const handleQty = (e: React.ChangeEvent<HTMLInputElement>) => {
+    if (qty > product.quantity!) {
+      toast.error("Quantity exceeds stock");
+    }
     setQty(+e.target.value);
     handleDebouncedQuantity(+e.target.value);
   };
@@ -60,13 +63,6 @@ const ProductsCart = ({ id, quantity, product }: Props) => {
           toast.success("Product removed from cart");
         })
         .catch(() => toast.error(dev));
-    });
-  };
-
-  const exampleOrder = () => {
-    const mockData = {};
-    startTransition(() => {
-      onAddOrder;
     });
   };
 

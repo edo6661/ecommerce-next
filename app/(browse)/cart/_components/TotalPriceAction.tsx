@@ -12,6 +12,8 @@ import { toast } from "sonner";
 import { Checkbox } from "@/components/ui/checkbox";
 import Modal from "@/components/shared/Modal";
 import { onAddOrder } from "@/actions/order";
+import { onMultipleRemoveFromCart } from "@/actions/cart";
+import { cn } from "@/lib/utils";
 
 interface Props {
   shipping: Shipping[];
@@ -65,9 +67,13 @@ const TotalPriceAction = ({ shipping, payment, cart, user }: Props) => {
       onAddOrder({ ...data })
         .then(() => {
           toast.success("Order Success");
-          router.push("/orders");
         })
         .catch((err) => console.error(err))
+    );
+    startTransition(() =>
+      onMultipleRemoveFromCart(ids).then(() => {
+        router.push("/orders");
+      })
     );
   };
 
@@ -88,7 +94,9 @@ const TotalPriceAction = ({ shipping, payment, cart, user }: Props) => {
 
   const btnMobile = (
     <Button
-      className="sm:w-full mt-4 sm:hidden block"
+      className={cn("mt-4 sm:hidden block", {
+        "w-full mx-8": step,
+      })}
       onClick={handleClick}
       disabled={optionalPending}
     >
@@ -98,7 +106,7 @@ const TotalPriceAction = ({ shipping, payment, cart, user }: Props) => {
 
   return (
     <>
-      <div className="fl-center justify-between ">
+      <div className={cn("fl-center justify-between")}>
         {!step && (
           <div className="fl-center gap-2 sm:hidden">
             <Checkbox
@@ -114,8 +122,16 @@ const TotalPriceAction = ({ shipping, payment, cart, user }: Props) => {
         <span className="sm:block hidden">
           {isBuyPending ? <Skeleton className=" w-12 h-6" /> : totalPrice}
         </span>
-        <div className="fl-center gap-4 sm:hidden ">
-          <div className="flex flex-col">
+        <div
+          className={cn("fl-center gap-4 sm:hidden", {
+            "w-full": step,
+          })}
+        >
+          <div
+            className={cn("flex flex-col", {
+              hidden: step,
+            })}
+          >
             <p className="focusedWord">Total</p>
             <span className="sm:hidden block">
               {isBuyPending ? <Skeleton className=" w-12 h-6" /> : totalPrice}

@@ -45,7 +45,7 @@ const BottomSectionProduct = ({
           />
           <div className="flex flex-col ">
             <p>Riski</p>
-            <p>27 Ulasan Lengkap</p>
+            <p>27 Ulasan Mock</p>
           </div>
         </div>
         <div className="fl-center gap-1">

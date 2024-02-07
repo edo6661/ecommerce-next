@@ -34,7 +34,7 @@ const FilterCatBrand = () => {
                   onValueChange={field.onChange}
                   defaultValue={field.value}
                 >
-                  <FormSelect items={brand} label="Sort" />
+                  <FormSelect items={brand} label="Mock" />
                 </Select>
               </FormItem>
             )}

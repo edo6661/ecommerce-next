@@ -24,7 +24,11 @@ export const getOrders = async () => {
       include: {
         items: {
           include: {
-            product: true,
+            product: {
+              include: {
+                owner: true,
+              },
+            },
           },
         },
         user: true,

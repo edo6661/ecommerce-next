@@ -4,7 +4,12 @@ import Link from "next/link";
 import { AnimatePresence, motion } from "framer-motion";
 import { useTheme } from "next-themes";
 import { cardProps } from "@/utils/framer-motion";
+import { usePathname } from "next/navigation";
+import { cn } from "@/lib/utils";
 const CatBrandCard = ({ name, photo, label }: Category & { label: string }) => {
+  const pathname = usePathname();
+  const encodedName = encodeURI(name);
+  const optionalColor = pathname.includes(encodedName);
   return (
     <>
       <AnimatePresence>
@@ -18,7 +23,9 @@ const CatBrandCard = ({ name, photo, label }: Category & { label: string }) => {
         >
           <Link
             href={`/${label.toLowerCase()}/${encodeURI(name)}`}
-            className="cardCatBrand  "
+            className={cn("cardCatBrand", {
+              focusedWord: optionalColor,
+            })}
           >
             <Image
               src={photo}

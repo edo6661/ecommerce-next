@@ -28,7 +28,7 @@ const LengthCatBrand = ({ name, label }: { name: string; label: string }) => {
   const err = !brandPathname ? errCat : errBrand;
 
   if (isLoading) {
-    return <Skeleton className=" w-[157px] h-[24px]" />;
+    return <Skeleton className=" w-32 h-[24px]" />;
   }
   if (isErr) {
     return <p>{err?.message}</p>;

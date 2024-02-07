@@ -18,7 +18,7 @@ const DropdownRatingCatBrand = () => {
         className="fl-center justify-between w-full group"
         onClick={isOnFilteredStarToggle}
       >
-        <Title label="Rating" />
+        <Title label="Mock" />
         <AnimatePresence>
           <motion.span
             variants={dropdownVars}
