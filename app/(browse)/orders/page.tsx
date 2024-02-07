@@ -4,15 +4,25 @@ import { AiOutlineShopping } from "react-icons/ai";
 import ImageOrder from "./_components/ImageOrder";
 import { Separator } from "@/components/ui/separator";
 import { generateDate } from "@/helpers";
-const page = async () => {
-  const orders = await getOrders();
+import OrdersPagination from "../category/_components/OrdersPagination";
+interface SearchParamsType {
+  searchParams?: {
+    query?: string;
+    page?: string;
+  };
+}
+const page = async ({ searchParams }: SearchParamsType) => {
+  const currentPage = Number(searchParams?.page) || 1;
+  const query = searchParams?.query || "";
+
+  const orders = await getOrders(query, currentPage);
 
   return (
     <>
       <section className="container py-4">
         <Title label="Transaction List" />
         <div className="flex flex-col gap-6">
-          {orders.map((order) => {
+          {orders.orders.map((order) => {
             return (
               <div key={order.id} className=" space-y-4">
                 <div className="fl-center gap-2">
@@ -46,6 +56,7 @@ const page = async () => {
             );
           })}
         </div>
+        <OrdersPagination totalPages={orders.totalPages} />
       </section>
     </>
   );

@@ -14,8 +14,10 @@ export const addOrder = async ({ body }: { body: any }) => {
   }
 };
 
-export const getOrders = async () => {
+export const getOrders = async (query: string, currentPage: number) => {
   try {
+    const limit = 1;
+    const offset = (currentPage - 1) * limit;
     const { id: userId } = await getSelf();
     const orders = await db.order.findMany({
       where: {
@@ -33,11 +35,21 @@ export const getOrders = async () => {
         },
         user: true,
       },
+      take: limit,
+      skip: offset,
     });
 
-    return orders;
+    const ordersLength = await db.order.count({
+      where: {
+        userId,
+      },
+    });
+
+    const totalPages = Math.ceil(ordersLength / limit);
+
+    return { orders, totalPages };
   } catch (err) {
     console.error(err);
-    return [];
+    throw new Error("Internal Error");
   }
 };
