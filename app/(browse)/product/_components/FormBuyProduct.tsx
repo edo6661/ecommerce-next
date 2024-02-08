@@ -8,7 +8,7 @@ import { CiMoneyBill } from "react-icons/ci";
 import { onAddToCart } from "@/actions/cart";
 import { toast } from "sonner";
 import { dev } from "@/helpers/initial";
-import { useRouter } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 
 const FormBuyProduct = ({
   quantity,
@@ -16,12 +16,14 @@ const FormBuyProduct = ({
   id,
   userId,
   existingProductInCart,
+  isOwner,
 }: {
   quantity: number;
   price: number;
   id: string;
   userId: string;
   existingProductInCart: boolean;
+  isOwner: boolean;
 }) => {
   const [qty, setQty] = useState(1);
   const [total, setTotal] = useState(price);
@@ -83,7 +85,7 @@ const FormBuyProduct = ({
         <Button
           className="flex-1 rounded-none rounded-l-xl fl-center gap-1"
           onClick={() => handleSubmit()}
-          disabled={isPending}
+          disabled={isPending || isOwner}
         >
           <span>
             <FaShoppingCart />
@@ -93,23 +95,25 @@ const FormBuyProduct = ({
         <Button
           className="flex-1 rounded-none rounded-r-xl fl-center gap-1"
           variant="secondary"
+          disabled={isOwner}
         >
           <span>
             <CiMoneyBill />
           </span>
-          <span>Buy</span>
+          <span>Mock</span>
         </Button>
       </div>
       <div className="fl-center flex-wrap text-lg">
         <Button
           className="flex-1 rounded-none rounded-l-xl fl-center gap-1"
           variant="secondary"
+          disabled={isOwner}
         >
           <span>
             <FaHeart />
             {/* <FaRegHeart /> */}
           </span>
-          <span>Wishlist</span>
+          Mock
         </Button>
         <Button className="flex-1 rounded-none rounded-r-xl fl-center gap-1">
           <span>

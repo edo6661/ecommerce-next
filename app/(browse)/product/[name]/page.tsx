@@ -65,13 +65,13 @@ const Product = async ({ params }: Props) => {
             userId={user?.id!}
             id={product?.id!}
             existingProductInCart={existingProductInCart}
+            isOwner={isOwner}
           />
           <RatingConclusion />
         </div>
         <div className="sm:hidden block">
           <MobileSliderProduct name={decodedName} imageUrls={imageProduct} />
         </div>
-        {/* ! tata yang bener TODO */}
         <div className=" sm:col-span-3 px-4">
           <SpecificProduct
             price={product?.price!}
@@ -83,7 +83,7 @@ const Product = async ({ params }: Props) => {
             <ProfilePhotoProduct owner={owner!} />
           </div>
           <div className="fl-center justify-between ">
-            <DetailProfilePhotoProduct />
+            <DetailProfilePhotoProduct {...owner!} isOwner={isOwner} />
           </div>
           <Separator />
           <BottomSectionProduct

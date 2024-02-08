@@ -17,7 +17,7 @@ export const generateDate = (date: Date) => {
 };
 
 export const generatePagination = (totalPages: number, currentPage: number) => {
-  if (totalPages < 6) {
+  if (totalPages <= 6) {
     // If the total number of pages is 6 or less,
     // display all pages without dot dot dot asek
     return Array.from({ length: totalPages }, (_, i) => i + 1);

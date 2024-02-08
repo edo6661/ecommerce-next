@@ -9,6 +9,8 @@ interface Props {
   };
 }
 
+// ! csr pagination
+
 const page = async ({ params, searchParams }: Props) => {
   const { name } = params;
   const limit = Number(searchParams?.limit) || 6;

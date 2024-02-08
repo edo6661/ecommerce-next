@@ -4,7 +4,7 @@ import { Button } from "@/components/ui/button";
 import { generatePagination } from "@/helpers";
 import { ArrowLeft, ArrowRight } from "lucide-react";
 import Link from "next/link";
-import { usePathname, useSearchParams } from "next/navigation";
+import { notFound, usePathname, useSearchParams } from "next/navigation";
 
 const OrdersPagination = ({ totalPages }: { totalPages: number }) => {
   const pathname = usePathname();
@@ -22,43 +22,40 @@ const OrdersPagination = ({ totalPages }: { totalPages: number }) => {
     Number(searchParams.get("page"))
   );
 
-  const disabled = "opacity-50 cursor-not-allowed";
+  if (Number(currentPage) > totalPages) return notFound();
+
+  const disabled = "opacity-75   cursor-not-allowed";
+
   return (
     <>
-      <div className="fl-center gap-2">
-        {currentPage && (
-          <Link
-            href={createPageUrl(Number(currentPage) - 1)}
-            className={`${currentPage == 1 && disabled}`}
-          >
-            <ArrowLeft />
-          </Link>
-        )}
+      <div className="fl-center justify-center">
         {allPages.map((page, i) => {
           const disabledFirstPage = i == 0 && currentPage == 1 ? disabled : "";
           const disabledLastPage =
-            i == totalPages - 1 && currentPage == totalPages ? disabled : "";
+            totalPages == 1
+              ? "rounded-xl"
+              : i == totalPages - 1 && currentPage == totalPages
+              ? disabled
+              : "";
+          const optionalRounded =
+            i === 0
+              ? "rounded-l-xl"
+              : i === totalPages - 1
+              ? "rounded-r-xl"
+              : "";
 
           return (
             <Link key={page} href={createPageUrl(page)}>
               <Button
-                className={`${
-                  currentPage === String(page) ? "focusedWord" : ""
-                } ${disabledFirstPage} ${disabledLastPage}`}
+                className={`rounded-none ${
+                  i === +currentPage - 1 ? disabled : ""
+                } ${disabledFirstPage} ${disabledLastPage} ${optionalRounded}`}
               >
                 {page}
               </Button>
             </Link>
           );
         })}
-        {currentPage && (
-          <Link
-            href={createPageUrl(Number(currentPage) + 1)}
-            className={`${currentPage == totalPages && disabled}`}
-          >
-            <ArrowRight />
-          </Link>
-        )}
       </div>
     </>
   );

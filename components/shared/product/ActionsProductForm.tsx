@@ -232,7 +232,7 @@ const AddProductForm = ({
         categoryModal || brandModal ? "modalOpen relative" : ""
       )}
     >
-      <DevTool control={form.control} />
+      {/* <DevTool control={form.control} /> */}
       {modalBrand}
       {modalCategory}
       <Card className="cardAddProduct ">

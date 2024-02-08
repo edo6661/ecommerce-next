@@ -11,27 +11,31 @@ interface SearchParamsType {
     page?: string;
   };
 }
+
+// ! ssr pagination
 const page = async ({ searchParams }: SearchParamsType) => {
   const currentPage = Number(searchParams?.page) || 1;
-  const query = searchParams?.query || "";
 
-  const orders = await getOrders(query, currentPage);
+  const { totalPages, orders } = await getOrders(currentPage);
 
   return (
     <>
-      <section className="container py-4">
+      <section className="container py-4 space-y-4">
         <Title label="Transaction List" />
         <div className="flex flex-col gap-6">
-          {orders.orders.map((order) => {
+          {orders.map((order) => {
             return (
               <div key={order.id} className=" space-y-4">
-                <div className="fl-center gap-2">
+                <div className="fl-center gap-2 flex-wrap">
                   <span>
                     <AiOutlineShopping size={25} />
                   </span>
                   <p>{generateDate(order.createdAt)}</p>
-                  <p>{order.status}</p>
-                  <p className="focusedWord">MOCK INV</p>
+                  <div className="focusedWord fl-center gap-1 flex-wrap">
+                    <p>{order.status}</p>
+                    <p>MOCK INV</p>
+                    <p>{order.items.length} Item</p>
+                  </div>
                 </div>
                 <Separator />
                 <div className="flex justify-between items-center">
@@ -40,13 +44,13 @@ const page = async ({ searchParams }: SearchParamsType) => {
                       const { photos, name } = item.product;
                       const url = photos.split(",")[0];
                       return (
-                        <div key={item.id} className="">
+                        <div key={item.id}>
                           <ImageOrder url={url} name={name} />
                         </div>
                       );
                     })}
                   </div>
-                  <div className="fl-col-center  ">
+                  <div className="text-center  ">
                     <p className="focusedWord">Total Belanja</p>
                     <p className="font-semibold">${order.total}</p>
                   </div>
@@ -56,7 +60,7 @@ const page = async ({ searchParams }: SearchParamsType) => {
             );
           })}
         </div>
-        <OrdersPagination totalPages={orders.totalPages} />
+        <OrdersPagination totalPages={totalPages} />
       </section>
     </>
   );

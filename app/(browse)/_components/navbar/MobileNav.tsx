@@ -97,16 +97,16 @@ const MobileNav = () => {
               <div className="fl-center gap-4 ">
                 <Button
                   className="w-full"
-                  onClick={() => router.push("add-product")}
+                  onClick={() => router.push("/add-product")}
                 >
                   Add Product
                 </Button>
                 <Button
                   className="w-full"
                   variant="ghost"
-                  onClick={() => router.push("sign-up")}
+                  onClick={() => router.push("/orders")}
                 >
-                  Your Profile
+                  Your Orders
                 </Button>
               </div>
             </SignedIn>

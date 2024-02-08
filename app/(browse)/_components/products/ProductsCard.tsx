@@ -52,7 +52,7 @@ const ProductsCard = ({
               </div>
               <div className="fl-center gap-2 line-through text-muted-foreground  ">
                 <span className=" text-sm">Rp </span>
-                <p className="">{discountPrice}</p>
+                <p>{discountPrice}</p>
               </div>
               <div className=" sm:fl-center gap-2 font-light">
                 <div className="fl-center gap-2">

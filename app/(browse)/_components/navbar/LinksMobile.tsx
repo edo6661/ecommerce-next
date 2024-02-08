@@ -3,6 +3,7 @@ import { List, Star, Heart, Store, HelpCircle, QrCode } from "lucide-react";
 import { FaRegAngry } from "react-icons/fa";
 import Link from "next/link";
 import { Separator } from "@/components/ui/separator";
+import { GiTargetDummy } from "react-icons/gi";
 
 type MenuItem = {
   icon: React.ReactNode;
@@ -12,41 +13,46 @@ type MenuItem = {
 
 const menuItems: MenuItem[] = [
   {
+    icon: <GiTargetDummy />,
+    text: "All Dummy",
+    href: "",
+  },
+  {
     icon: <List />,
-    text: "Daftar Transaksi",
-    href: "/transactions",
+    text: "Transaction List",
+    href: "",
   },
   {
     icon: <Star />,
-    text: "Ulasan",
-    href: "/reviews",
+    text: "Reviews",
+    href: "",
   },
   {
     icon: <Heart />,
     text: "Wishlist",
-    href: "/wishlist",
+    href: "",
   },
   {
     icon: <Store />,
-    text: "Toko yang di-follow",
-    href: "/followed-stores",
+    text: "Followed Stores",
+    href: "",
   },
 ];
 
 const additionalItems: MenuItem[] = [
   {
     icon: <FaRegAngry size={24} />,
-    text: "Pesanan Dikomplain",
-    href: "", // Tautan kosong
+    text: "Complained Orders",
+    href: "",
   },
   {
     icon: <HelpCircle />,
-    text: "Bantuan",
+    text: "Help",
     href: "",
   },
   {
     icon: <QrCode />,
-    text: "Scan Kode QR",
+    text: "Scan QR Code",
     href: "",
   },
 ];

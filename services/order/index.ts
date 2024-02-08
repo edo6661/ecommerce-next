@@ -14,9 +14,9 @@ export const addOrder = async ({ body }: { body: any }) => {
   }
 };
 
-export const getOrders = async (query: string, currentPage: number) => {
+export const getOrders = async (currentPage: number) => {
   try {
-    const limit = 1;
+    const limit = 2;
     const offset = (currentPage - 1) * limit;
     const { id: userId } = await getSelf();
     const orders = await db.order.findMany({

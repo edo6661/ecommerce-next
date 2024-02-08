@@ -51,7 +51,7 @@ const SpecificProduct = ({
           </p>
         </div>
         <Separator />
-        <div className="">
+        <div>
           <Title label="Detail Product" />
           <p>{description}</p>
         </div>

@@ -19,7 +19,7 @@ const ProfilePhotoProduct = ({ owner }: { owner: User }) => {
           whileInView="view"
           viewport={{ once: true }}
         >
-          <Link href={`/user/${owner?.username}`}>
+          <Link href={`/${owner?.username}`}>
             <Image
               src={owner?.profilePhoto!}
               alt={owner?.username!}

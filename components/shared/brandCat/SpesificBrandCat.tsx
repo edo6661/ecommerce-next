@@ -19,6 +19,9 @@ interface Props {
   label: string;
   getData: () => Promise<Category[]>;
 }
+
+// ! csr pagination
+
 const SpesificBrandCat = ({ name, page, limit, label, getData }: Props) => {
   return (
     <section className="container py-4 space-y-4 ">
@@ -30,7 +33,7 @@ const SpesificBrandCat = ({ name, page, limit, label, getData }: Props) => {
         <p className=" focusedWord">{decodeURIComponent(name)}</p>
       </div>
       <article className=" grid grid-cols-3 items-center">
-        <p className="">Filter</p>
+        <p>Filter</p>
         <div className=" col-span-2 fl-center justify-between">
           <LengthCatBrand label={label} name={name} />
           <FilterCatBrand />

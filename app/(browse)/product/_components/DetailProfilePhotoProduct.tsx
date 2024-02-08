@@ -1,8 +1,17 @@
 import { Button } from "@/components/ui/button";
+import { isFollowingUser } from "@/services/follow";
 import React from "react";
 import { FaClock, FaStar } from "react-icons/fa";
+import FollowActions from "../../[username]/_components/actions";
+import { User } from "@prisma/client";
 
-const DetailProfilePhotoProduct = () => {
+interface Props extends User {
+  isOwner: boolean;
+}
+
+const DetailProfilePhotoProduct = async ({ id, isOwner }: Props) => {
+  const isFollowing = await isFollowingUser(id!);
+
   return (
     <>
       <div className="md:text-sm lg:text-base text-base">
@@ -25,7 +34,7 @@ const DetailProfilePhotoProduct = () => {
           </p>
         </div>
       </div>
-      <Button>Follow</Button>
+      {!isOwner && <FollowActions isFollowing={isFollowing} userId={id!} />}
     </>
   );
 };

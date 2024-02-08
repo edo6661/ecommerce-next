@@ -109,7 +109,7 @@ const Posters = () => {
           {Array.from({ length: firstMockPosters.length }).map((_, i) => {
             const activeSlide = i === currentSlide;
             return (
-              <div key={i} className="">
+              <div key={i}>
                 <button
                   className={cn(" opacity-50 transition-opacity duration-300", {
                     "opacity-100": activeSlide,
