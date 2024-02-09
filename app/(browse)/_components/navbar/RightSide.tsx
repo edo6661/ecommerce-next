@@ -7,6 +7,7 @@ import { RxDividerVertical } from "react-icons/rx";
 import ToggleNav from "./ToggleNav";
 import { getCartLength } from "@/services/cart";
 import { LiaJediOrder } from "react-icons/lia";
+import ClerkButtonUser from "./ClerkButtonUser";
 
 const RightSide = async ({ cartLength }: { cartLength: number }) => {
   return (
@@ -32,14 +33,11 @@ const RightSide = async ({ cartLength }: { cartLength: number }) => {
           <RxDividerVertical size={40} />
         </div>
         <div className="fl-center gap-4">
-          <div className="fl-center sm:gap-4 gap-2">
+          <div className="fl-center gap-4">
             <div className="sm:fl-center gap-4 hidden ">
               <ModeToggle />
               <div className=" scale-125" suppressHydrationWarning>
-                <SignedIn>
-                  {/* ! penyebab hydration dari clerk */}
-                  {/* <UserButton afterSignOutUrl="/" /> */}
-                </SignedIn>
+                <ClerkButtonUser />
               </div>
             </div>
             <SignedOut>
@@ -47,9 +45,17 @@ const RightSide = async ({ cartLength }: { cartLength: number }) => {
                 <LogIn />
               </Link>
             </SignedOut>
-            <span style={{ scale: 0.8 }} className=" block sm:hidden">
+            {/* <span style={{ scale: 0.8 }} className=" block sm:hidden">
               <ModeToggle />
-            </span>
+            </span> */}
+            <Link href="/cart" className="relative sm:hidden block">
+              <ShoppingCart className=" w-7 h-7" />
+              <SignedIn>
+                <span className="absolute -top-3 -right-4 bg-red-500 px-2 rounded-full">
+                  {cartLength}
+                </span>
+              </SignedIn>
+            </Link>
             <ToggleNav />
           </div>
         </div>

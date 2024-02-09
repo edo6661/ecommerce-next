@@ -11,10 +11,8 @@ import { usePathname } from "next/navigation";
 import { useRouter } from "next/navigation";
 import { X } from "lucide-react";
 import { SignedIn, SignedOut, UserButton } from "@clerk/nextjs";
-import { ModeToggle } from "@/components/shared/theme";
 import { montserrat } from "@/lib/utils";
 const MobileNav = () => {
-  const ref = useRef<HTMLElement>();
   const { isNav, toggleNav, falseNav } = useMugi((state) => state);
   const pathName = usePathname();
   const router = useRouter();

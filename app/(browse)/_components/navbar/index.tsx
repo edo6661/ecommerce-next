@@ -13,7 +13,7 @@ const Navbar = async () => {
       <MobileNav />
       <header>
         <nav className="pt-2  relative z-20">
-          <div className="fl-center justify-between  xl:gap-12 lg:gap-10 md:gap-8 sm:gap-6 gap-4 px-6 ">
+          <div className="fl-center justify-between  xl:gap-12 lg:gap-10 md:gap-8 sm:gap-6 gap-2 sm:px-6 px-2 ">
             <ImageLogo />
             <MidSide />
             <RightSide cartLength={cartLength!} />
