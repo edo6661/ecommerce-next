@@ -101,6 +101,6 @@ export const getCartLength = async () => {
     return cart;
   } catch (err) {
     console.error(err);
-    return [];
+    return;
   }
 };

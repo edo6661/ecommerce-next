@@ -3,16 +3,14 @@
 import { onRemoveFromCart, onUpdateQuantity } from "@/actions/cart";
 import { Button } from "@/components/ui/button";
 import { Checkbox } from "@/components/ui/checkbox";
-import useUserById from "@/hooks/useUserById";
 import { Cart, Product, User } from "@prisma/client";
 import Image from "next/image";
-import { Skeleton } from "@/components/ui/skeleton";
 import { upperFirst } from "@/helpers";
 import { Separator } from "@/components/ui/separator";
 import Link from "next/link";
 import { Input } from "@/components/ui/input";
 import { FaHeart, FaTrash } from "react-icons/fa";
-import { memo, useEffect, useMemo, useState, useTransition } from "react";
+import { useEffect, useMemo, useState, useTransition } from "react";
 import { dev } from "@/helpers/initial";
 import { toast } from "sonner";
 import { AnimatePresence, motion } from "framer-motion";

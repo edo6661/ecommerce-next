@@ -125,3 +125,57 @@ export const getProductsByOwnerId = async (ownerId: string) => {
     throw new Error("Internal Error");
   }
 };
+
+export const getProductsByQuery = async (
+  query: string,
+  limit: number,
+  page: number
+) => {
+  try {
+    const products = await db.product.findMany({
+      where: {
+        OR: [
+          {
+            name: {
+              contains: query,
+            },
+          },
+          {
+            description: {
+              contains: query,
+            },
+          },
+        ],
+      },
+      take: limit,
+      skip: (page - 1) * limit,
+    });
+
+    const filteredProductsLength = await db.product.count({
+      where: {
+        OR: [
+          {
+            name: {
+              contains: query,
+            },
+          },
+          {
+            description: {
+              contains: query,
+            },
+          },
+        ],
+      },
+    });
+
+    const totalPages = Math.ceil(filteredProductsLength / limit);
+    return {
+      products,
+      totalPages,
+    };
+  } catch (error) {
+    console.error(error);
+
+    throw new Error("Internal Error");
+  }
+};

@@ -34,7 +34,7 @@ export const generatePagination = (totalPages: number, currentPage: number) => {
   // Otherwise, show the current page, the previous page, the next page,
   // and the two pages before and after the current page.
   // If the current page is somewhere in the middle,
-  // show the first page, an ellipsis, the current page and its neighbors,
-  // another ellipsis, and the last page.
+  // show the first page, an dotdotdot, the current page and its neighbors,
+  // another dotdotdot, and the last page.
   return [1, "...", currentPage - 1, currentPage + 1, "...", totalPages];
 };

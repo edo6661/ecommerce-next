@@ -1,29 +1,20 @@
-"use client";
-
 import { Button } from "@/components/ui/button";
 import { generatePagination } from "@/helpers";
-import { ArrowLeft, ArrowRight } from "lucide-react";
 import Link from "next/link";
-import { notFound, usePathname, useSearchParams } from "next/navigation";
+import React from "react";
 
-const OrdersPagination = ({ totalPages }: { totalPages: number }) => {
-  const pathname = usePathname();
-  const searchParams = useSearchParams();
-  const currentPage = searchParams.get("page") || 1;
-
-  const createPageUrl = (pageNumber: number | string) => {
-    const params = new URLSearchParams(searchParams);
-    params.set("page", String(pageNumber));
-    return `${pathname}?${String(params)}`;
-  };
-
-  const allPages = generatePagination(
-    totalPages,
-    Number(searchParams.get("page"))
-  );
-
-  if (Number(currentPage) > totalPages) return notFound();
-
+const SearchPagination = ({
+  totalPages,
+  currentPage,
+  q,
+  limit,
+}: {
+  totalPages: number;
+  currentPage: number;
+  q: string;
+  limit: number;
+}) => {
+  const allPages = generatePagination(totalPages, currentPage);
   const disabled = "opacity-75 cursor-not-allowed";
 
   return (
@@ -45,7 +36,10 @@ const OrdersPagination = ({ totalPages }: { totalPages: number }) => {
               : "";
 
           return (
-            <Link key={page} href={createPageUrl(page)}>
+            <Link
+              key={page}
+              href={`/search?q=${q}&limit=${limit}&page=${page}`}
+            >
               <Button
                 className={`rounded-none ${
                   i === +currentPage - 1 ? disabled : ""
@@ -61,4 +55,4 @@ const OrdersPagination = ({ totalPages }: { totalPages: number }) => {
   );
 };
 
-export default OrdersPagination;
+export default SearchPagination;

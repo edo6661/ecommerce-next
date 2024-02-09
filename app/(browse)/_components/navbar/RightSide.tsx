@@ -2,15 +2,13 @@ import { ModeToggle } from "@/components/shared/theme";
 import { SignedIn, SignedOut, UserButton } from "@clerk/nextjs";
 import { LogIn, PlusCircle, ShoppingCart } from "lucide-react";
 import Link from "next/link";
-import React, { useState } from "react";
+import React, { Suspense, useState } from "react";
 import { RxDividerVertical } from "react-icons/rx";
 import ToggleNav from "./ToggleNav";
 import { getCartLength } from "@/services/cart";
 import { LiaJediOrder } from "react-icons/lia";
 
-const RightSide = async () => {
-  const cartLength = await getCartLength();
-
+const RightSide = async ({ cartLength }: { cartLength: number }) => {
   return (
     <>
       <div className="fl-center gap-2 ">
@@ -37,9 +35,10 @@ const RightSide = async () => {
           <div className="fl-center sm:gap-4 gap-2">
             <div className="sm:fl-center gap-4 hidden ">
               <ModeToggle />
-              <div className=" scale-125">
+              <div className=" scale-125" suppressHydrationWarning>
                 <SignedIn>
-                  <UserButton afterSignOutUrl="/" />
+                  {/* ! penyebab hydration dari clerk */}
+                  {/* <UserButton afterSignOutUrl="/" /> */}
                 </SignedIn>
               </div>
             </div>
