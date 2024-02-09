@@ -29,6 +29,7 @@ import DetailProfilePhotoProduct from "../_components/DetailProfilePhotoProduct"
 import BottomSectionProduct from "../_components/BottomSectionProduct";
 import FormBuyProduct from "../_components/FormBuyProduct";
 import { getCartByUserId } from "@/services/cart";
+import FixedMobileCart from "../_components/FixedMobileCart";
 interface Props {
   params: { name: string };
 }
@@ -51,48 +52,61 @@ const Product = async ({ params }: Props) => {
   const imageProduct = product?.photos.split(",")!;
 
   return (
-    <section className="container py-4 space-y-4">
-      <BreadcrumbProduct
-        productName={decodedName}
-        categoryName={category?.name!}
-      />
-      <article className=" sm:grid sm:grid-cols-5 gap-6">
-        <div className=" containerSwiperProduct">
-          <SwiperImageProduct name={decodedName} imageUrls={imageProduct} />
-          <FormBuyProduct
-            quantity={product?.quantity!}
-            price={product?.price!}
-            userId={user?.id!}
-            id={product?.id!}
-            existingProductInCart={existingProductInCart}
-            isOwner={isOwner}
-          />
-          <RatingConclusion />
-        </div>
-        <div className="sm:hidden block">
-          <MobileSliderProduct name={decodedName} imageUrls={imageProduct} />
-        </div>
-        <div className=" sm:col-span-3 px-4">
-          <SpecificProduct
-            price={product?.price!}
-            discountPrice={product?.discountPrice!}
-            decodedName={decodedName!}
-            description={product?.description!}
-          />
-          <div className="  flex gap-4 pb-4">
-            <ProfilePhotoProduct owner={owner!} />
+    <section className=" py-4 space-y-4 relative">
+      <div className="container relative pb-[73px]">
+        <BreadcrumbProduct
+          productName={decodedName}
+          categoryName={category?.name!}
+        />
+        <article className=" sm:grid sm:grid-cols-5 gap-6">
+          <div className=" containerSwiperProduct">
+            <SwiperImageProduct name={decodedName} imageUrls={imageProduct} />
+            <FormBuyProduct
+              quantity={product?.quantity!}
+              price={product?.price!}
+              userId={user?.id!}
+              id={product?.id!}
+              existingProductInCart={existingProductInCart}
+              isOwner={isOwner}
+            />
+            <RatingConclusion />
           </div>
-          <div className="fl-center justify-between ">
-            <DetailProfilePhotoProduct {...owner!} isOwner={isOwner} />
+          <div className="sm:hidden block">
+            <MobileSliderProduct name={decodedName} imageUrls={imageProduct} />
           </div>
-          <Separator />
-          <BottomSectionProduct
-            ownerProducts={ownerProducts}
-            username={owner?.username!}
-          />
-        </div>
+          <div className=" sm:col-span-3 px-4">
+            <SpecificProduct
+              price={product?.price!}
+              discountPrice={product?.discountPrice!}
+              decodedName={decodedName!}
+              description={product?.description!}
+            />
+            <div className="  flex gap-4 pb-4">
+              <ProfilePhotoProduct owner={owner!} />
+            </div>
+            <div className="fl-center justify-between ">
+              <DetailProfilePhotoProduct {...owner!} isOwner={isOwner} />
+            </div>
+            <Separator />
+            <BottomSectionProduct
+              ownerProducts={ownerProducts}
+              username={owner?.username!}
+            />
+          </div>
+        </article>
+        {isOwner && <Link href={`/product/${params.name}/edit`}>Edit</Link>}
+      </div>
+      <article className=" fixed bottom-0 w-full  sm:hidden flex dark:bg-white dark:text-black bg-black text-white z-40 rounded-t-xl shadow-muted-foreground shadow-sm ">
+        <FixedMobileCart
+          quantity={product?.quantity!}
+          price={product?.price!}
+          userId={user?.id!}
+          id={product?.id!}
+          existingProductInCart={existingProductInCart}
+          isOwner={isOwner}
+          name={params.name}
+        />
       </article>
-      {isOwner && <Link href={`/product/${params.name}/edit`}>Edit</Link>}
     </section>
   );
 };

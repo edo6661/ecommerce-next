@@ -4,6 +4,7 @@ import { Separator } from "@/components/ui/separator";
 import MidSide from "./MidSide";
 import MobileNav from "./MobileNav";
 import { getCartLength } from "@/services/cart";
+import { montserrat } from "@/lib/utils";
 
 const Navbar = async () => {
   const cartLength = await getCartLength();
@@ -12,7 +13,7 @@ const Navbar = async () => {
     <>
       <MobileNav />
       <header>
-        <nav className="pt-2  relative z-20">
+        <nav className={`pt-2  relative z-20 ${montserrat.className}`}>
           <div className="fl-center justify-between  xl:gap-12 lg:gap-10 md:gap-8 sm:gap-6 gap-2 sm:px-6 px-2 ">
             <ImageLogo />
             <MidSide />

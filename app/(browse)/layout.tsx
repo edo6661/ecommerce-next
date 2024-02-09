@@ -1,3 +1,4 @@
+import Footer from "@/components/general/Footer";
 import Navbar from "./_components/navbar/index";
 
 const BrowseLayout = ({ children }: { children: React.ReactNode }) => {
@@ -5,6 +6,7 @@ const BrowseLayout = ({ children }: { children: React.ReactNode }) => {
     <>
       <Navbar />
       {children}
+      <Footer />
     </>
   );
 };

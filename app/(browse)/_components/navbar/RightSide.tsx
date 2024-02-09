@@ -17,7 +17,7 @@ const RightSide = async ({ cartLength }: { cartLength: number }) => {
           <Link href="/cart" className="relative">
             <ShoppingCart className=" w-7 h-7" />
             <SignedIn>
-              <span className="absolute -top-3 -right-4 bg-red-500 px-2 rounded-full">
+              <span className="absolute -top-3 text-white -right-4 bg-red-500 px-2 rounded-full">
                 {cartLength}
               </span>
             </SignedIn>
@@ -51,7 +51,7 @@ const RightSide = async ({ cartLength }: { cartLength: number }) => {
             <Link href="/cart" className="relative sm:hidden block">
               <ShoppingCart className=" w-7 h-7" />
               <SignedIn>
-                <span className="absolute -top-3 -right-4 bg-red-500 px-2 rounded-full">
+                <span className="absolute -top-3 text-white -right-4 bg-red-500 px-2 rounded-full">
                   {cartLength}
                 </span>
               </SignedIn>
