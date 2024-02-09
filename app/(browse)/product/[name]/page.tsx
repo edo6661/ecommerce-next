@@ -68,6 +68,7 @@ const Product = async ({ params }: Props) => {
               id={product?.id!}
               existingProductInCart={existingProductInCart}
               isOwner={isOwner}
+              name={params.name}
             />
             <RatingConclusion />
           </div>
@@ -94,7 +95,6 @@ const Product = async ({ params }: Props) => {
             />
           </div>
         </article>
-        {isOwner && <Link href={`/product/${params.name}/edit`}>Edit</Link>}
       </div>
       <article className=" fixed bottom-0 w-full  sm:hidden flex dark:bg-white dark:text-black bg-black text-white z-40 rounded-t-xl shadow-muted-foreground shadow-sm ">
         <FixedMobileCart

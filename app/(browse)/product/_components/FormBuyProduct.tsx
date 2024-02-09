@@ -3,7 +3,13 @@ import Title from "@/components/shared/Title";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import React, { useMemo, useState, useTransition } from "react";
-import { FaHeart, FaRegHeart, FaShare, FaShoppingCart } from "react-icons/fa";
+import {
+  FaEdit,
+  FaHeart,
+  FaRegHeart,
+  FaShare,
+  FaShoppingCart,
+} from "react-icons/fa";
 import { CiMoneyBill } from "react-icons/ci";
 import { onAddToCart } from "@/actions/cart";
 import { toast } from "sonner";
@@ -17,6 +23,7 @@ const FormBuyProduct = ({
   userId,
   existingProductInCart,
   isOwner,
+  name,
 }: {
   quantity: number;
   price: number;
@@ -24,10 +31,13 @@ const FormBuyProduct = ({
   userId: string;
   existingProductInCart: boolean;
   isOwner: boolean;
+  name: string;
 }) => {
   const [qty, setQty] = useState(1);
   const [total, setTotal] = useState(price);
   const [isPending, startTransition] = useTransition();
+
+  const router = useRouter();
 
   const handleQty = (e: React.ChangeEvent<HTMLInputElement>) =>
     setQty(+e.target.value);
@@ -54,6 +64,10 @@ const FormBuyProduct = ({
           toast.error(dev);
         });
     });
+  };
+
+  const handleEdit = () => {
+    router.push(`/product/${name}/edit`);
   };
 
   return (
@@ -115,11 +129,14 @@ const FormBuyProduct = ({
           </span>
           Mock
         </Button>
-        <Button className="flex-1 rounded-none rounded-r-xl fl-center gap-1">
+        <Button
+          className="flex-1 rounded-none rounded-r-xl fl-center gap-1"
+          onClick={() => handleEdit()}
+        >
           <span>
-            <FaShare />
+            <FaEdit />
           </span>
-          <span>Share</span>
+          <span>Edit</span>
         </Button>
       </div>
     </div>

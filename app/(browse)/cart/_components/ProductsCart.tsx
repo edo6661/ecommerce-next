@@ -73,7 +73,7 @@ const ProductsCart = ({ id, quantity, product }: Props) => {
   return (
     <>
       <div className="flex flex-col gap-2">
-        <div className="flex gap-4 ">
+        <div className="flex sm:gap-4 gap-2 ">
           <AnimatePresence initial={false}>
             {!step && (
               <motion.div>
