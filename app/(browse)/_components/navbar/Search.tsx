@@ -9,6 +9,7 @@ import { Search as SearchIcon } from "lucide-react";
 const Search = () => {
   const router = useRouter();
   const [q, setQ] = useState("");
+  const inputRef = React.useRef<HTMLInputElement>(null);
 
   const handleInput = (e: React.ChangeEvent<HTMLInputElement>) =>
     setQ(e.target.value);
@@ -17,6 +18,7 @@ const Search = () => {
     (e: SyntheticEvent) => {
       e.preventDefault();
       setQ("");
+      if (inputRef.current) inputRef.current.blur();
       router.push(`/search?q=${q}&limit=6&page=1`);
     },
     [router, q]
@@ -31,6 +33,7 @@ const Search = () => {
           id="search"
           onChange={handleInput}
           value={q}
+          ref={inputRef}
         />
         <span className="opacity-40 right-6 top-1/2 -translate-y-1/2 absolute">
           <RxDividerVertical size={40} />

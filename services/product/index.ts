@@ -179,3 +179,12 @@ export const getProductsByQuery = async (
     throw new Error("Internal Error");
   }
 };
+
+export const getAllProducts = async () => {
+  try {
+    return db.product.findMany();
+  } catch (error) {
+    console.error(error);
+    throw new Error("Internal Error");
+  }
+};

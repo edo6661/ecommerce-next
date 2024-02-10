@@ -8,7 +8,7 @@ interface Props {
 }
 const BreadcrumbProduct = ({ productName, categoryName }: Props) => {
   return (
-    <article className="fl-center gap-2 sm:pb-2 pb-4">
+    <article className="fl-center gap-2 pb-8">
       <Link className=" hoveredText " href="/">
         Mugichawn
       </Link>

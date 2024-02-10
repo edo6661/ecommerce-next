@@ -15,6 +15,7 @@ import { onAddToCart } from "@/actions/cart";
 import { toast } from "sonner";
 import { dev } from "@/helpers/initial";
 import { usePathname, useRouter } from "next/navigation";
+import { upperFirst } from "@/helpers";
 
 const FormBuyProduct = ({
   quantity,
@@ -57,7 +58,9 @@ const FormBuyProduct = ({
     startTransition(() => {
       onAddToCart(id, quantity)
         .then((product) => {
-          toast.success(`Successfully add to cart ${product.product.name}`);
+          toast.success(
+            `successfully add ${upperFirst(product.product.name)} to cart `
+          );
         })
         .catch((err) => {
           console.error(err);

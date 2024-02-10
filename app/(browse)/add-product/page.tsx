@@ -8,6 +8,12 @@ import { Metadata } from "next";
 export const metadata: Metadata = {
   title: "Add Product",
   description: "Add Product Page Mugichawn",
+  robots: {
+    // tidak bisa di index oleh crawlers
+    index: false,
+    // bisa dibuka dari link
+    follow: true,
+  },
 };
 
 const AddProduct = async () => {

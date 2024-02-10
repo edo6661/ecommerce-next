@@ -225,3 +225,7 @@
 .cartContainer {
   @apply sm:borderShadowNeutral py-4 px-2;
 }
+
+section[aria-label="Notifications alt+T"] {
+  min-height: 0 !important;
+}

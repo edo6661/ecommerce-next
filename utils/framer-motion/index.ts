@@ -130,7 +130,6 @@ export const posterSlideVars = {
       opacity: 1,
       transition: {
         type: "spring",
-        stiffness: 200,
       },
     };
   },
@@ -140,7 +139,6 @@ export const posterSlideVars = {
       opacity: 0,
       transition: {
         type: "spring",
-        stiffness: 200,
       },
     };
   },

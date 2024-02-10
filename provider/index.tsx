@@ -25,8 +25,8 @@ function Provider({ children }: React.PropsWithChildren) {
     <>
       <ClerkProvider>
         <ThemeProvider attribute="class" enableSystem>
-          <Toaster position="bottom-center" />
           <QueryClientProvider client={client}>
+            <Toaster position="bottom-center" />
             {children}
             {/* <ReactQueryDevtools /> */}
           </QueryClientProvider>
