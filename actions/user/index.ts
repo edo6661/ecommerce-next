@@ -23,6 +23,7 @@ export const getUserByUserId = (userId: string) => {
 export const editAddress = async (address: string) => {
   try {
     const { id } = await getSelf();
+    if (!id) throw new Error("Unauthorized");
     await db.user.update({
       data: {
         address,

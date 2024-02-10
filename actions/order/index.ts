@@ -7,6 +7,9 @@ import { revalidatePath } from "next/cache";
 export const onAddOrder = async (body: Partial<Order>) => {
   try {
     const user = await getSelf();
+    if (!user) {
+      throw new Error("Unauthorized");
+    }
     await addOrder({ body: { ...body, userId: user.id } });
 
     revalidatePath("/orders");

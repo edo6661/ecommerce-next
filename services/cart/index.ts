@@ -23,6 +23,9 @@ export const getCartByUserId = async (userId: string) => {
 export const addToCart = async (productId: string, quantity: number) => {
   try {
     const user = await getSelf();
+    if (!user) {
+      throw new Error("Unauthorized");
+    }
 
     const cart = await db.cart.create({
       data: {
@@ -58,6 +61,9 @@ export const removeFromCart = async (id: string) => {
 export const removeMultipleFromCart = async (ids: string[]) => {
   try {
     const { id: userId } = await getSelf();
+    if (!userId) {
+      throw new Error("Unauthorized");
+    }
     const deleteRequests = ids.map((productId) => {
       return db.cart.deleteMany({
         where: {

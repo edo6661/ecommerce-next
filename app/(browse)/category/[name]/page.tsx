@@ -1,7 +1,7 @@
 import SpesificBrandCat from "@/components/shared/brandCat/SpesificBrandCat";
 import { upperFirst } from "@/helpers";
 import { getCategory, getCategoryByName } from "@/services/category";
-import { ResolvedMetadata } from "next";
+import { ResolvingMetadata } from "next";
 import { notFound } from "next/navigation";
 
 interface Props {
@@ -14,7 +14,7 @@ interface Props {
 
 export async function generateMetadata(
   { params }: Props,
-  parent: ResolvedMetadata
+  parent: ResolvingMetadata
 ) {
   const decodedName = upperFirst(decodeURIComponent(params.name));
   const category = await getCategoryByName(decodeURIComponent(params.name));

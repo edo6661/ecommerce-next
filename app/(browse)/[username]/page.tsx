@@ -7,7 +7,7 @@ import { upperFirst } from "@/helpers";
 import { getProductsByOwnerId } from "@/services/product";
 import ProductSwiper from "../product/_components/ProductSwiper";
 import Title from "@/components/shared/Title";
-import { Metadata, ResolvedMetadata } from "next";
+import { Metadata, ResolvingMetadata } from "next";
 import { Separator } from "@/components/ui/separator";
 
 interface Props {
@@ -16,7 +16,7 @@ interface Props {
 
 export async function generateMetadata(
   { params }: Props,
-  parent: ResolvedMetadata
+  parent: ResolvingMetadata
 ): Promise<Metadata> {
   const user = await getUserByUsername(decodeURIComponent(params.username));
   if (!user) {

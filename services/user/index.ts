@@ -24,9 +24,9 @@ export const getSelfByUsername = async (username: string) => {
 };
 export const getSelf = async () => {
   const self = await currentUser();
-  if (!self?.id) return;
+  if (!self || !self.username) throw new Error("Unauthorized");
   const user = await db.user.findUnique({
-    where: { externalUserId: self?.id },
+    where: { externalUserId: self.id },
   });
   if (!user) throw new Error("Not Found");
   return user;
@@ -37,7 +37,8 @@ export const getRecommended = async () => {
 
   try {
     const self = await getSelf();
-    userId = self?.id;
+    if (!self) throw new Error("Unauthorized");
+    userId = self.id;
   } catch {
     userId = null;
   }

@@ -14,7 +14,7 @@ const Footer = () => {
     <>
       {!noFooter && (
         <footer
-          className={`overflow-x-hidden dark:bg-white text-black p-4 ${montserrat.className} font-semibold `}
+          className={`overflow-x-hidden dark:bg-white text-black p-4 ${montserrat.className} font-semibold mt-4 `}
         >
           <div className="container md:text-2xl sm:text-xl text-base fl-center justify-between">
             <button onClick={scrolltoTop}>Scroll to Top</button>

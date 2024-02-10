@@ -3,12 +3,11 @@ import { getCategory } from "@/services/category";
 import { getBrand } from "@/services/brand";
 import { getSelf } from "@/services/user";
 import { updateProduct } from "@/actions/product";
-import AddProductForm from "@/components/shared/product/ActionsProductForm";
 import ActionsProductForm from "@/components/shared/product/ActionsProductForm";
 import { getProductByName } from "@/services/product";
-import { ResolvedMetadata } from "next";
 import { upperFirst } from "@/helpers";
 import { notFound } from "next/navigation";
+import { ResolvingMetadata } from "next";
 
 interface Props {
   params: { name: string };
@@ -16,13 +15,13 @@ interface Props {
 
 export async function generateMetadata(
   { params }: Props,
-  parent: ResolvedMetadata
+  parent: ResolvingMetadata
 ) {
   const product = await getProductByName(decodeURIComponent(params.name));
   if (!product) {
     return notFound();
   }
-  const previousImage = parent.openGraph?.images ?? [];
+  const previousImage = (await parent).openGraph?.images || [];
 
   return {
     title: product.name

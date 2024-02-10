@@ -19,6 +19,7 @@ export const getOrders = async (currentPage: number) => {
     const limit = 6;
     const offset = (currentPage - 1) * limit;
     const { id: userId } = await getSelf();
+    if (!userId) throw new Error("Unauthorized");
     const orders = await db.order.findMany({
       where: {
         userId,
