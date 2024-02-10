@@ -3,6 +3,13 @@ import { getCategory } from "@/services/category";
 import { getSelf } from "@/services/user";
 import { addProduct } from "@/actions/product";
 import ActionsProductForm from "@/components/shared/product/ActionsProductForm";
+import { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: "Add Product",
+  description: "Add Product Page Mugichawn",
+};
+
 const AddProduct = async () => {
   const category = await getCategory();
   const brand = await getBrand();

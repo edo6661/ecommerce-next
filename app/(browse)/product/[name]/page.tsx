@@ -30,8 +30,37 @@ import BottomSectionProduct from "../_components/BottomSectionProduct";
 import FormBuyProduct from "../_components/FormBuyProduct";
 import { getCartByUserId } from "@/services/cart";
 import FixedMobileCart from "../_components/FixedMobileCart";
+import { Metadata, ResolvingMetadata } from "next";
+import { notFound } from "next/navigation";
 interface Props {
   params: { name: string };
+}
+
+export async function generateMetadata(
+  { params }: Props,
+  parent: ResolvingMetadata
+): Promise<Metadata> {
+  const decodedName = upperFirst(decodeURIComponent(params.name));
+
+  const product = await getProductByName(decodeURIComponent(params.name));
+
+  if (!product) {
+    return notFound();
+  }
+
+  const previousImage = (await parent).openGraph?.images ?? [];
+
+  return {
+    title: product?.name ? upperFirst(product.name) : decodedName,
+    description: product?.description
+      ? truncateWord(product.description, 100)
+      : "Description Mugichawn",
+    openGraph: {
+      images: product?.photos
+        ? [{ url: product.photos.split(",")[0] }, ...previousImage]
+        : previousImage,
+    },
+  };
 }
 
 const Product = async ({ params }: Props) => {

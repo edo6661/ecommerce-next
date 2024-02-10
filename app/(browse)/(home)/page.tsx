@@ -19,7 +19,7 @@ import { Metadata } from "next";
 
 export const metadata: Metadata = {
   title: "MugiChan",
-  description: "Home page",
+  description: "Home Page Mugichawn",
 };
 
 export default async function Home() {

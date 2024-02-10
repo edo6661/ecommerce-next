@@ -86,6 +86,9 @@
   footer {
     @apply font-montserrat !important;
   }
+  section {
+    @apply min-h-screen;
+  }
 }
 
 @layer utilities {

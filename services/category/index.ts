@@ -24,3 +24,16 @@ export const getCategoryById = async (id: string) => {
       throw new Error("failed to fetch category");
     });
 };
+
+export const getCategoryByName = async (name: string) => {
+  try {
+    return db.category.findFirst({
+      where: {
+        name,
+      },
+    });
+  } catch (err) {
+    console.error(err);
+    throw new Error("failed to fetch category");
+  }
+};

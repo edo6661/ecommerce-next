@@ -7,8 +7,32 @@ import { upperFirst } from "@/helpers";
 import { getProductsByOwnerId } from "@/services/product";
 import ProductSwiper from "../product/_components/ProductSwiper";
 import Title from "@/components/shared/Title";
+import { Metadata, ResolvedMetadata } from "next";
+import { Separator } from "@/components/ui/separator";
 
-const UserPage = async ({ params }: { params: { username: string } }) => {
+interface Props {
+  params: { username: string };
+}
+
+export async function generateMetadata(
+  { params }: Props,
+  parent: ResolvedMetadata
+): Promise<Metadata> {
+  const user = await getUserByUsername(decodeURIComponent(params.username));
+  if (!user) {
+    return notFound();
+  }
+  const previousImage = (await parent).openGraph?.images || [];
+  return {
+    title: upperFirst(params.username),
+    description: `Description ${params.username}`,
+    openGraph: {
+      images: [{ url: user.profilePhoto }, ...previousImage],
+    },
+  };
+}
+
+const UserPage = async ({ params }: Props) => {
   const user = await getUserByUsername(params.username);
   const self = await currentUser();
   if (!user) return notFound();
@@ -21,6 +45,7 @@ const UserPage = async ({ params }: { params: { username: string } }) => {
     <section className="container space-y-8">
       <div>
         <Title label={upperFirst(user.username)} />
+        <Separator className="mb-4" />
         {!isOwner && (
           <FollowActions userId={user.id} isFollowing={isFollowing} />
         )}

@@ -1,11 +1,36 @@
 import SpesificBrandCat from "@/components/shared/brandCat/SpesificBrandCat";
-import { getCategory } from "@/services/category";
+import { upperFirst } from "@/helpers";
+import { getCategory, getCategoryByName } from "@/services/category";
+import { ResolvedMetadata } from "next";
+import { notFound } from "next/navigation";
 
 interface Props {
   params: { name: string };
   searchParams?: {
     limit?: string;
     page?: string;
+  };
+}
+
+export async function generateMetadata(
+  { params }: Props,
+  parent: ResolvedMetadata
+) {
+  const decodedName = upperFirst(decodeURIComponent(params.name));
+  const category = await getCategoryByName(decodeURIComponent(params.name));
+
+  if (!category) {
+    return notFound();
+  }
+
+  const previousImage = (await parent).openGraph?.images || [];
+
+  return {
+    title: category.name ? upperFirst(category.name) : decodedName,
+    description: `Description ${category?.name || decodedName}`,
+    openGraph: {
+      images: [{ url: category.photo }, ...previousImage],
+    },
   };
 }
 

@@ -5,12 +5,18 @@ import ImageOrder from "./_components/ImageOrder";
 import { Separator } from "@/components/ui/separator";
 import { generateDate } from "@/helpers";
 import OrdersPagination from "../category/_components/OrdersPagination";
+import { Metadata } from "next";
 interface SearchParamsType {
   searchParams?: {
     query?: string;
     page?: string;
   };
 }
+
+export const metadata: Metadata = {
+  title: "Order",
+  description: "Order Description",
+};
 
 // ! ssr pagination
 const page = async ({ searchParams }: SearchParamsType) => {

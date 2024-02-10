@@ -1,3 +1,4 @@
+"use server";
 import { currentUser } from "@clerk/nextjs";
 import { db } from "../../lib/database/index";
 
@@ -23,9 +24,9 @@ export const getSelfByUsername = async (username: string) => {
 };
 export const getSelf = async () => {
   const self = await currentUser();
-  if (!self || !self.username) throw new Error("Unauthorized");
+  if (!self?.id) return;
   const user = await db.user.findUnique({
-    where: { externalUserId: self.id },
+    where: { externalUserId: self?.id },
   });
   if (!user) throw new Error("Not Found");
   return user;
@@ -36,7 +37,7 @@ export const getRecommended = async () => {
 
   try {
     const self = await getSelf();
-    userId = self.id;
+    userId = self?.id;
   } catch {
     userId = null;
   }
