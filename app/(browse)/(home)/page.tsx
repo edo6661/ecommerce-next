@@ -15,6 +15,12 @@ import {
   dehydrate,
 } from "@tanstack/react-query";
 import getQueryClient from "@/lib/queryClient";
+import { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: "MugiChan",
+  description: "Home page",
+};
 
 export default async function Home() {
   const queryClient = getQueryClient();
