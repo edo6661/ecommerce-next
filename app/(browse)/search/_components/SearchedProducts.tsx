@@ -37,7 +37,7 @@ const SearchedProducts = async ({ q, limit, currentPage }: Props) => {
           />
         </>
       ) : (
-        <Title label={`0 Results ${q} products`} />
+        <Title label={`Empty Results ${q} products`} />
       )}
     </article>
   );

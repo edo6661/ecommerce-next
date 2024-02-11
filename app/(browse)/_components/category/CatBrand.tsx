@@ -15,7 +15,11 @@ export const CatBrand = async ({ getData, label }: Props) => {
   return (
     <>
       <article>
-        <Title label={label} />
+        {!data.length ? (
+          <Title label={`Empty ${label}`} />
+        ) : (
+          <Title label={label} />
+        )}
         <CatBrandSwiper data={data} label={label} />
       </article>
     </>

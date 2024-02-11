@@ -29,7 +29,11 @@ const ProductsList = () => {
 
   return (
     <>
-      <Title label="Products" />
+      {!products?.length ? (
+        <Title label={`Empty Product`} />
+      ) : (
+        <Title label="Products" />
+      )}
       <div className="containerProducts ">
         {products?.map((product, index) => {
           const urls = product.photos.split(",");
@@ -44,7 +48,7 @@ const ProductsList = () => {
         })}
         {isFetchingNextPage && <ProductsListSkeleton />}
         {isLoading && <ProductsListSkeleton />}
-        {hasNextPage || isFetching ? null : (
+        {!products?.length || hasNextPage || isFetching ? null : (
           <Title
             label="No More Products to fetch"
             className=" text-center mt-4 col-span-full"
