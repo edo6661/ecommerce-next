@@ -113,9 +113,6 @@ const AddProductForm = ({
   };
 
   const onSubmit = async (data: ProductData) => {
-    if (!form.formState.isDirty) {
-      return;
-    }
     const convertedType = {
       ...data,
       ...(product && { id: product.id }),
