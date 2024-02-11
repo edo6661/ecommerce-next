@@ -312,11 +312,7 @@ const AddProductForm = ({
               {imageUploadElement}
               <div className="flex gap-2 pt-4">
                 <Button
-                  disabled={
-                    uploadedFile.length === 0 ||
-                    isPending ||
-                    !form.formState.isDirty
-                  }
+                  disabled={uploadedFile.length === 0 || isPending}
                   type="submit"
                   className={cn("", {
                     hidden: formStep === 0,
