@@ -38,7 +38,7 @@ const ProductsCard = ({
             className=" flex flex-col gap-2 sm:text-base text-sm"
           >
             <Image
-              className=" pb-1 w-full sm:h-[12rem] h-[144px] rounded-t-md"
+              className=" pb-1 w-full sm:h-[13.5rem] object-contain h-[144px] rounded-t-md"
               width={256}
               height={256}
               alt={name}

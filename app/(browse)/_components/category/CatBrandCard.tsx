@@ -32,7 +32,7 @@ const CatBrandCard = ({ name, photo, label }: Category & { label: string }) => {
               alt={name}
               width={80}
               height={80}
-              className="rounded-full min-w-[80px] min-h-[80px]"
+              className="rounded-xl min-w-[80px] min-h-[80px]"
             />
             <p>{name}</p>
           </Link>
