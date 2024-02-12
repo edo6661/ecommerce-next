@@ -21,7 +21,7 @@ const SwiperImageProduct = ({
   const swiperRef = useRef<SwiperType | null>(null);
   const [selectedImage, setSelectedImage] = useState(imageUrls[0]);
 
-  const cardSlider = imageUrls.slice(1).map((url, i) => (
+  const cardSlider = imageUrls.map((url, i) => (
     <SwiperSlide key={url}>
       <motion.div
         initial={{ opacity: 0 }}

@@ -29,7 +29,7 @@ const ProductsCart = ({ id, quantity, product }: Props) => {
     (state) => state
   );
   const [isPending, startTransition] = useTransition();
-  const [qty, setQty] = useState(1);
+  const [qty, setQty] = useState(quantity ?? 1);
 
   const handleQty = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (qty > product.quantity!) {
