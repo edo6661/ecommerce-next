@@ -56,7 +56,7 @@ const FormBuyProduct = ({
       return toast.error("Please login first");
     }
     startTransition(() => {
-      onAddToCart(id, quantity)
+      onAddToCart(id, qty)
         .then((product) => {
           toast.success(
             `successfully add ${upperFirst(product.product.name)} to cart `
