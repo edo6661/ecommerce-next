@@ -1,6 +1,5 @@
 "use server";
 import { db } from "@/lib/database";
-import { unstable_noStore } from "next/cache";
 
 export const getCategory = async () => {
   return db.category.findMany({}).catch((err) => {
